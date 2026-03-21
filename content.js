@@ -1,14 +1,15 @@
 // ============================================================================
-// LinkedIn AutoApply — Content Script v1.5.0
+// LinkedIn AutoApply — Content Script v1.6.0
 // Handles DOM interactions: form filling, modal navigation, multi-page session.
-// v1.5.0: Fix clickJobCard navigation (stays on search page), typeahead handling
+// v1.6.0: Fix clickJobCard — use URL currentJobId param (no <a> click/navigation)
+// v1.5.0: Typeahead handling, button retry
 // v1.4.0: Direct storage reads, blacklist, improved button detection
 // ============================================================================
 (function () {
   if (window.__LinkedInAutoApply_loaded) return;
   window.__LinkedInAutoApply_loaded = true;
 
-  const VERSION = "1.5.0";
+  const VERSION = "1.6.0";
   let isRunning = false;
   let shouldStop = false;
   const sessionStats = { applied: 0, skipped: 0, errors: 0 };
@@ -872,31 +873,49 @@
   }
 
   async function clickJobCard(card) {
-    // v1.5.0 CRITICAL: Do NOT click the <a> link directly!
-    // humanClick() calls element.click() which on <a> tags triggers native
-    // browser navigation away from the search page. Instead, dispatch mouse
-    // events only — LinkedIn's Ember/SPA router intercepts them and shows
-    // the job details in the right panel (split-pane view) via pushState.
-    const link = $("a", card.element) || card.element;
-    log(`[DEBUG] clickJobCard: element=${link.tagName}, jobId=${card.jobId}`, "info");
+    // v1.6.0 CRITICAL: Do NOT click <a> links at all — even synthetic MouseEvent
+    // on <a> tags causes real navigation away from the search page.
+    // Instead, update the URL's currentJobId param. LinkedIn's SPA watches
+    // for URL changes and loads job details in the right split-pane panel.
+    log(`[DEBUG] clickJobCard: jobId=${card.jobId}`, "info");
 
-    link.scrollIntoView({ behavior: "smooth", block: "center" });
-    await sleep(randomDelay(200, 500));
-    const rect = link.getBoundingClientRect();
-    const x = rect.left + rect.width / 2 + randomDelay(-2, 2);
-    const y = rect.top + rect.height / 2 + randomDelay(-2, 2);
+    // Scroll the card into view for visual feedback
+    card.element.scrollIntoView({ behavior: "smooth", block: "center" });
+    await sleep(randomDelay(300, 600));
 
-    link.dispatchEvent(new MouseEvent("mouseover", { bubbles: true, clientX: x, clientY: y }));
-    await sleep(randomDelay(50, 150));
-    link.dispatchEvent(new MouseEvent("mousedown", { bubbles: true, clientX: x, clientY: y }));
-    await sleep(randomDelay(30, 80));
-    link.dispatchEvent(new MouseEvent("mouseup", { bubbles: true, clientX: x, clientY: y }));
-    link.dispatchEvent(new MouseEvent("click", { bubbles: true, clientX: x, clientY: y }));
-    // NOTE: intentionally NO element.click() — that causes real navigation!
+    if (card.jobId) {
+      // Method 1 (preferred): Update URL param — LinkedIn SPA loads job in right panel
+      const url = new URL(window.location.href);
+      url.searchParams.set("currentJobId", card.jobId);
+      window.history.replaceState(null, "", url.toString());
+      // Trigger popstate so LinkedIn's router picks up the change
+      window.dispatchEvent(new PopStateEvent("popstate", { state: null }));
+      log(`[DEBUG] URL updated with currentJobId=${card.jobId}`, "info");
+      await sleep(randomDelay(1500, 2500));
 
-    await sleep(randomDelay(2000, 4000));
+      // Check if the right panel loaded by looking for job title change
+      const rightPanel = $(".jobs-search__job-details, .scaffold-layout__detail, .job-details-module");
+      if (rightPanel) {
+        log(`[DEBUG] Panneau détail trouvé`, "info");
+      }
+    }
 
-    // Safety check: if we accidentally navigated away, go back
+    // Method 2 (fallback): If URL param didn't work, click the card's container
+    // element (NOT the <a> tag) to trigger LinkedIn's delegation handler
+    if (!findEasyApplyButton()) {
+      log(`[DEBUG] Easy Apply non visible après URL update — click sur carte`, "info");
+      const clickTarget = card.element; // the <li>, NOT the <a> inside
+      const rect = clickTarget.getBoundingClientRect();
+      const x = rect.left + rect.width / 2;
+      const y = rect.top + rect.height / 2;
+      clickTarget.dispatchEvent(new MouseEvent("mousedown", { bubbles: true, clientX: x, clientY: y }));
+      await sleep(50);
+      clickTarget.dispatchEvent(new MouseEvent("mouseup", { bubbles: true, clientX: x, clientY: y }));
+      clickTarget.dispatchEvent(new MouseEvent("click", { bubbles: true, clientX: x, clientY: y }));
+      await sleep(randomDelay(2000, 3000));
+    }
+
+    // Safety: verify we're still on the search page
     if (!window.location.href.includes("/jobs/search") && !window.location.href.includes("/jobs/collection")) {
       log("[DEBUG] Navigation détectée hors recherche — retour arrière", "warn");
       window.history.back();
@@ -1008,12 +1027,23 @@
           continue;
         }
 
-        log(`Ouverture offre ${i + 1}/${jobCards.length}...`);
+        log(`Sélection offre ${i + 1}/${jobCards.length}...`);
         await clickJobCard(card);
+
+        // Wait for the right panel to load job details
+        await sleep(randomDelay(1500, 2500));
         const jobInfo = getCurrentJobInfo();
         if (!jobInfo.jobId && card.jobId) jobInfo.jobId = card.jobId;
 
         log(`Offre: ${jobInfo.title || "(sans titre)"} @ ${jobInfo.company || "(inconnu)"}`, "info");
+
+        // Safety check: make sure we're still on search page
+        if (!window.location.href.includes("/jobs/search") && !window.location.href.includes("/jobs/collection")) {
+          log("[DEBUG] Plus sur la page de recherche — retour", "warn");
+          window.history.back();
+          await sleep(3000);
+          continue;
+        }
 
         // ── Blacklist check ─────────────────────────────────────────
         if (await isCompanyBlacklisted(jobInfo.company)) {
@@ -1024,7 +1054,13 @@
           continue;
         }
 
-        const easyApplyBtn = findEasyApplyButton();
+        // Wait for Easy Apply button with retry (right panel may still be loading)
+        let easyApplyBtn = findEasyApplyButton();
+        if (!easyApplyBtn) {
+          log(`[DEBUG] Easy Apply non visible — attente 3s...`, "info");
+          await sleep(3000);
+          easyApplyBtn = findEasyApplyButton();
+        }
         if (!easyApplyBtn) {
           log(`Pas de bouton Easy Apply: ${jobInfo.title}`, "info");
           await chrome.runtime.sendMessage({
