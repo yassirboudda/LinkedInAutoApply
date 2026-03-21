@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      width: 380px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f3f6f8;
+      color: #333;
+    }
+    .header {
+      background: linear-gradient(135deg, #0077b5 0%, #00a0dc 100%);
+      color: white; padding: 16px 20px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .header h1 {
+      font-size: 16px; font-weight: 700;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .header .version { font-size: 10px; opacity: 0.7; font-weight: 400; }
+    .toggle-container { display: flex; align-items: center; gap: 8px; font-size: 12px; }
+    .toggle { position: relative; width: 44px; height: 24px; }
+    .toggle input { display: none; }
+    .toggle .slider {
+      position: absolute; inset: 0; background: rgba(255,255,255,0.3);
+      border-radius: 24px; cursor: pointer; transition: 0.3s;
+    }
+    .toggle .slider::before {
+      content: ''; position: absolute; width: 18px; height: 18px;
+      left: 3px; bottom: 3px; background: white; border-radius: 50%; transition: 0.3s;
+    }
+    .toggle input:checked + .slider { background: rgba(255,255,255,0.6); }
+    .toggle input:checked + .slider::before { transform: translateX(20px); }
+    .stats {
+      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px;
+      padding: 12px 16px; background: white; margin: 8px;
+      border-radius: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+    .stat { text-align: center; }
+    .stat .value { font-size: 24px; font-weight: 700; }
+    .stat .label { font-size: 10px; color: #666; text-transform: uppercase; }
+    .stat.applied .value { color: #0a66c2; }
+    .stat.skipped .value { color: #e67e22; }
+    .stat.errors .value { color: #e74c3c; }
+    .status-bar {
+      padding: 8px 16px; margin: 0 8px; border-radius: 8px;
+      font-size: 12px; text-align: center;
+    }
+    .status-bar.active { background: #d4edda; color: #155724; }
+    .status-bar.inactive { background: #f8d7da; color: #721c24; }
+    .status-bar.running { background: #cce5ff; color: #004085; animation: pulse 2s infinite; }
+    .status-bar.session { background: #fff3cd; color: #856404; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+    .actions { padding: 8px 16px; display: flex; flex-direction: column; gap: 6px; }
+    .actions-row { display: flex; gap: 6px; }
+    button {
+      flex: 1; padding: 10px 12px; border: none; border-radius: 8px;
+      font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s;
+    }
+    button:hover { transform: scale(1.02); }
+    button:active { transform: scale(0.98); }
+    .btn-primary { background: linear-gradient(135deg, #0077b5, #00a0dc); color: white; }
+    .btn-single { background: linear-gradient(135deg, #6c63ff, #897cff); color: white; }
+    .btn-stop { background: #e74c3c; color: white; display: none; }
+    .btn-secondary { background: #e8e8e8; color: #333; }
+    .btn-config { background: #2d3748; color: white; }
+    .btn-debug { background: #805ad5; color: white; font-size: 11px; padding: 6px 10px; }
+    .btn-debug.active { background: #38a169; }
+    .btn-download { background: #dd6b20; color: white; font-size: 11px; padding: 6px 10px; }
+    .quick-settings {
+      padding: 8px 16px; background: white; margin: 8px;
+      border-radius: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+    .quick-settings h3 { font-size: 12px; color: #666; margin-bottom: 8px; text-transform: uppercase; }
+    .setting-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 4px 0; font-size: 12px;
+    }
+    .setting-row input[type="number"] {
+      width: 60px; padding: 4px 6px; border: 1px solid #ddd;
+      border-radius: 4px; font-size: 12px; text-align: center;
+    }
+    .setting-row label { display: flex; align-items: center; gap: 6px; }
+    .setting-row input[type="checkbox"] { width: 16px; height: 16px; }
+    .log-container {
+      margin: 8px; border-radius: 10px; background: #1a1a2e;
+      overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+    }
+    .log-header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 8px 12px; background: #16213e;
+    }
+    .log-header span { color: #a0aec0; font-size: 11px; font-weight: 600; }
+    .log-header-buttons { display: flex; gap: 6px; }
+    .log-header button {
+      background: transparent; color: #a0aec0; font-size: 10px;
+      padding: 2px 8px; border-radius: 4px;
+    }
+    .log-header button:hover { background: rgba(255,255,255,0.1); }
+    .log {
+      height: 150px; overflow-y: auto; padding: 8px 12px;
+      font-family: 'Monaco', 'Menlo', monospace; font-size: 10px;
+      color: #e2e8f0; line-height: 1.5;
+    }
+    .log::-webkit-scrollbar { width: 4px; }
+    .log::-webkit-scrollbar-track { background: transparent; }
+    .log::-webkit-scrollbar-thumb { background: #4a5568; border-radius: 2px; }
+    .footer { text-align: center; padding: 8px; font-size: 10px; color: #999; }
+    .modal-overlay {
+      display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+      z-index: 9999; justify-content: center; align-items: center;
+    }
+    .modal-overlay.visible { display: flex; }
+    .modal-content {
+      background: white; border-radius: 12px; padding: 20px; width: 340px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    }
+    .modal-content h3 {
+      font-size: 16px; margin-bottom: 14px; color: #0077b5;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .form-group { margin-bottom: 12px; }
+    .form-group label {
+      display: block; font-size: 12px; font-weight: 600; color: #555;
+      margin-bottom: 4px;
+    }
+    .form-group input {
+      width: 100%; padding: 10px 12px; border: 1px solid #ddd;
+      border-radius: 8px; font-size: 13px; transition: border 0.2s;
+    }
+    .form-group input:focus { border-color: #0077b5; outline: none; }
+    .modal-actions { display: flex; gap: 8px; margin-top: 16px; }
+    .modal-actions button { flex: 1; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>
+      🚀 LinkedIn AutoApply
+      <span class="version">v1.4.0</span>
+    </h1>
+    <div class="toggle-container">
+      <span>Auto</span>
+      <label class="toggle">
+        <input type="checkbox" id="enableToggle">
+        <span class="slider"></span>
+      </label>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat applied">
+      <div class="value" id="appliedCount">0</div>
+      <div class="label">Postulées</div>
+    </div>
+    <div class="stat skipped">
+      <div class="value" id="skippedCount">0</div>
+      <div class="label">Ignorées</div>
+    </div>
+    <div class="stat errors">
+      <div class="value" id="errorsCount">0</div>
+      <div class="label">Erreurs</div>
+    </div>
+  </div>
+
+  <div class="status-bar inactive" id="statusBar">⏹️ Inactif</div>
+
+  <div class="actions">
+    <div class="actions-row">
+      <button class="btn-primary" id="startBatchBtn">🚀 Lancer Session</button>
+      <button class="btn-single" id="applySingleBtn">📄 Postuler ici</button>
+    </div>
+    <button class="btn-stop" id="stopBtn">⏹️ Arrêter</button>
+    <div class="actions-row">
+      <button class="btn-config" id="openConfigBtn">⚙️ Configuration</button>
+      <button class="btn-secondary" id="clearBtn">🗑 Reset</button>
+    </div>
+    <div class="actions-row">
+      <button class="btn-debug" id="devDebugBtn">🐛 DEV Debug: OFF</button>
+      <button class="btn-download" id="downloadLogBtn">📥 Télécharger Log</button>
+    </div>
+  </div>
+
+  <div class="quick-settings">
+    <h3>⚡ Réglages rapides</h3>
+    <div class="setting-row">
+      <span>Max par session</span>
+      <input type="number" id="maxJobs" min="1" max="100" value="25">
+    </div>
+    <div class="setting-row">
+      <label><input type="checkbox" id="autoSubmitToggle" checked> Soumission automatique</label>
+    </div>
+    <div class="setting-row">
+      <label><input type="checkbox" id="easyApplyOnly" checked> Easy Apply uniquement</label>
+    </div>
+  </div>
+
+  <div class="log-container">
+    <div class="log-header">
+      <span>📋 Journal</span>
+      <div class="log-header-buttons">
+        <button id="copyLogBtn">📋 Copier</button>
+        <button id="clearLogBtn">Effacer</button>
+      </div>
+    </div>
+    <div class="log" id="logOutput">Chargement...</div>
+  </div>
+
+  <div class="footer">
+    LinkedIn AutoApply v1.4.0 • Mistral AI 🤖
+  </div>
+
+  <div class="modal-overlay" id="sessionModal">
+    <div class="modal-content">
+      <h3>🚀 Nouvelle Session</h3>
+      <div class="form-group">
+        <label for="searchKeyword">Poste recherché</label>
+        <input type="text" id="searchKeyword" placeholder="Ex: Développeur, RPA, Data Analyst...">
+      </div>
+      <div class="form-group">
+        <label for="searchLocation">Ville ou Pays</label>
+        <input type="text" id="searchLocation" placeholder="Ex: Paris, France...">
+      </div>
+      <div class="modal-actions">
+        <button class="btn-primary" id="launchSessionBtn">🚀 Lancer</button>
+        <button class="btn-secondary" id="cancelSessionBtn">Annuler</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

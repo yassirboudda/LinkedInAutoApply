@@ -1,0 +1,1144 @@
+[
+  {
+    "ts": "2026-03-10T14:39:04.071Z",
+    "type": "session_start"
+  },
+  {
+    "type": "click",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4381587186&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=0h%2FB1QUZRjD%2BcaOu%2F4XrQw%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "x": 583,
+    "y": 241,
+    "button": 0,
+    "meta": {
+      "tag": "span",
+      "text": "Candidature simplifiée",
+      "selector": "div._5de606fd._176e0cd1._26fac69d > div._01c4edd6.d7951d81._0df2dd1a > div.e36aee90 > a._4101306c._6d2292a6._160ace1a > span.c9cadbff._0e20e365.ac5e1fac"
+    },
+    "ts": "2026-03-10T14:39:08.599Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4381587186&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=0h%2FB1QUZRjD%2BcaOu%2F4XrQw%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "click",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4381587186&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=0h%2FB1QUZRjD%2BcaOu%2F4XrQw%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "x": 472,
+    "y": 235,
+    "button": 0,
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:39:15.852Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4381587186&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=0h%2FB1QUZRjD%2BcaOu%2F4XrQw%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "input",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4381587186&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=0h%2FB1QUZRjD%2BcaOu%2F4XrQw%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "inputEvent": "input",
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:39:17.242Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4381587186&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=0h%2FB1QUZRjD%2BcaOu%2F4XrQw%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "input",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4381587186&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=0h%2FB1QUZRjD%2BcaOu%2F4XrQw%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "inputEvent": "input",
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:39:17.502Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4381587186&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=0h%2FB1QUZRjD%2BcaOu%2F4XrQw%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "input",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4381587186&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=0h%2FB1QUZRjD%2BcaOu%2F4XrQw%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "inputEvent": "input",
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:39:17.832Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4381587186&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=0h%2FB1QUZRjD%2BcaOu%2F4XrQw%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "input",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4381587186&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=0h%2FB1QUZRjD%2BcaOu%2F4XrQw%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "inputEvent": "input",
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:39:18.046Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4381587186&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=0h%2FB1QUZRjD%2BcaOu%2F4XrQw%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "input",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4381587186&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=0h%2FB1QUZRjD%2BcaOu%2F4XrQw%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "inputEvent": "input",
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:39:18.129Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4381587186&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=0h%2FB1QUZRjD%2BcaOu%2F4XrQw%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "click",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4381587186&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=0h%2FB1QUZRjD%2BcaOu%2F4XrQw%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "x": 360,
+    "y": 269,
+    "button": 0,
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:39:19.684Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4381587186&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=0h%2FB1QUZRjD%2BcaOu%2F4XrQw%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "click",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4381587186&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=0h%2FB1QUZRjD%2BcaOu%2F4XrQw%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "x": 832,
+    "y": 250,
+    "button": 0,
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:39:22.569Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4381587186&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=0h%2FB1QUZRjD%2BcaOu%2F4XrQw%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "click",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4381587186&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=0h%2FB1QUZRjD%2BcaOu%2F4XrQw%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "x": 843,
+    "y": 250,
+    "button": 0,
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:39:26.024Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4381587186&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=0h%2FB1QUZRjD%2BcaOu%2F4XrQw%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "click",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4381587186&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=0h%2FB1QUZRjD%2BcaOu%2F4XrQw%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "x": 831,
+    "y": 252,
+    "button": 0,
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:39:32.030Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4381587186&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=0h%2FB1QUZRjD%2BcaOu%2F4XrQw%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "click",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4381587186&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=0h%2FB1QUZRjD%2BcaOu%2F4XrQw%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "x": 823,
+    "y": 245,
+    "button": 0,
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:39:36.514Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4381587186&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=0h%2FB1QUZRjD%2BcaOu%2F4XrQw%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "click",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4381587186&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=0h%2FB1QUZRjD%2BcaOu%2F4XrQw%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "x": 845,
+    "y": 235,
+    "button": 0,
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:39:41.985Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4381587186&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=0h%2FB1QUZRjD%2BcaOu%2F4XrQw%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "click",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4381587186&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=0h%2FB1QUZRjD%2BcaOu%2F4XrQw%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "x": 850,
+    "y": 253,
+    "button": 0,
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:39:42.909Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4381587186&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=0h%2FB1QUZRjD%2BcaOu%2F4XrQw%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "click",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4381587186&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=0h%2FB1QUZRjD%2BcaOu%2F4XrQw%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "x": 850,
+    "y": 256,
+    "button": 0,
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:39:45.363Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4381587186&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=0h%2FB1QUZRjD%2BcaOu%2F4XrQw%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "click",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4381587186&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=0h%2FB1QUZRjD%2BcaOu%2F4XrQw%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "x": 210,
+    "y": 183,
+    "button": 0,
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:39:47.540Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4381587186&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=0h%2FB1QUZRjD%2BcaOu%2F4XrQw%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "click",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4381587186&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=0h%2FB1QUZRjD%2BcaOu%2F4XrQw%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "x": 210,
+    "y": 183,
+    "button": 0,
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:39:47.555Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4381587186&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=0h%2FB1QUZRjD%2BcaOu%2F4XrQw%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "input",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4381587186&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=0h%2FB1QUZRjD%2BcaOu%2F4XrQw%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "inputEvent": "input",
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:39:47.555Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4381587186&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=0h%2FB1QUZRjD%2BcaOu%2F4XrQw%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "click",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4381587186&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=0h%2FB1QUZRjD%2BcaOu%2F4XrQw%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "x": 831,
+    "y": 258,
+    "button": 0,
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:39:49.547Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4381587186&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=0h%2FB1QUZRjD%2BcaOu%2F4XrQw%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "click",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4381587186&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=0h%2FB1QUZRjD%2BcaOu%2F4XrQw%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "x": 476,
+    "y": 112,
+    "button": 0,
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:39:54.033Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4381587186&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=0h%2FB1QUZRjD%2BcaOu%2F4XrQw%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "click",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4381587186&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=0h%2FB1QUZRjD%2BcaOu%2F4XrQw%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "x": 476,
+    "y": 112,
+    "button": 0,
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:39:54.052Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4381587186&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=0h%2FB1QUZRjD%2BcaOu%2F4XrQw%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "input",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4381587186&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=0h%2FB1QUZRjD%2BcaOu%2F4XrQw%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "inputEvent": "input",
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:39:54.055Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4381587186&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=0h%2FB1QUZRjD%2BcaOu%2F4XrQw%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "click",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4381587186&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=0h%2FB1QUZRjD%2BcaOu%2F4XrQw%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "x": 806,
+    "y": 256,
+    "button": 0,
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:39:54.908Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4381587186&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=0h%2FB1QUZRjD%2BcaOu%2F4XrQw%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "click",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4381587186&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=0h%2FB1QUZRjD%2BcaOu%2F4XrQw%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "x": 779,
+    "y": 28,
+    "button": 0,
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:40:00.511Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4381587186&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=0h%2FB1QUZRjD%2BcaOu%2F4XrQw%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "click",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4381587186&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=0h%2FB1QUZRjD%2BcaOu%2F4XrQw%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "x": 301,
+    "y": 255,
+    "button": 0,
+    "meta": {
+      "tag": "div",
+      "text": "Arondor",
+      "selector": "div._5de606fd.ac5e1fac._176e0cd1 > div._176e0cd1._6c5855f1._6f69ed82:nth-of-type(1) > div._5de606fd.ac5e1fac._176e0cd1:nth-of-type(1) > div._5de606fd._176e0cd1._26fac69d > div.dc128f54._176e0cd1._6c5855f1"
+    },
+    "ts": "2026-03-10T14:40:04.124Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4381587186&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=0h%2FB1QUZRjD%2BcaOu%2F4XrQw%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "click",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4375521789&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=tH%2B1bP3K%2BndlosVKFJpSaQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "x": 560,
+    "y": 423,
+    "button": 0,
+    "meta": {
+      "tag": "span",
+      "text": "Candidature simplifiée",
+      "selector": "div._5de606fd._176e0cd1._26fac69d > div._01c4edd6.d7951d81._0df2dd1a > div.e36aee90 > a._4101306c._6d2292a6._160ace1a > span.c9cadbff._0e20e365.ac5e1fac"
+    },
+    "ts": "2026-03-10T14:40:08.176Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4375521789&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=tH%2B1bP3K%2BndlosVKFJpSaQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "click",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4375521789&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=tH%2B1bP3K%2BndlosVKFJpSaQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "x": 422,
+    "y": 190,
+    "button": 0,
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:40:12.065Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4375521789&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=tH%2B1bP3K%2BndlosVKFJpSaQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "click",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4375521789&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=tH%2B1bP3K%2BndlosVKFJpSaQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "x": 398,
+    "y": 200,
+    "button": 0,
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:40:12.776Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4375521789&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=tH%2B1bP3K%2BndlosVKFJpSaQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "input",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4375521789&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=tH%2B1bP3K%2BndlosVKFJpSaQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "inputEvent": "input",
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:40:13.981Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4375521789&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=tH%2B1bP3K%2BndlosVKFJpSaQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "input",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4375521789&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=tH%2B1bP3K%2BndlosVKFJpSaQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "inputEvent": "input",
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:40:14.318Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4375521789&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=tH%2B1bP3K%2BndlosVKFJpSaQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "input",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4375521789&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=tH%2B1bP3K%2BndlosVKFJpSaQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "inputEvent": "input",
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:40:15.339Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4375521789&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=tH%2B1bP3K%2BndlosVKFJpSaQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "input",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4375521789&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=tH%2B1bP3K%2BndlosVKFJpSaQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "inputEvent": "input",
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:40:15.519Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4375521789&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=tH%2B1bP3K%2BndlosVKFJpSaQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "input",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4375521789&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=tH%2B1bP3K%2BndlosVKFJpSaQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "inputEvent": "input",
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:40:16.264Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4375521789&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=tH%2B1bP3K%2BndlosVKFJpSaQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "input",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4375521789&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=tH%2B1bP3K%2BndlosVKFJpSaQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "inputEvent": "input",
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:40:16.655Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4375521789&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=tH%2B1bP3K%2BndlosVKFJpSaQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "input",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4375521789&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=tH%2B1bP3K%2BndlosVKFJpSaQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "inputEvent": "input",
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:40:17.436Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4375521789&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=tH%2B1bP3K%2BndlosVKFJpSaQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "input",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4375521789&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=tH%2B1bP3K%2BndlosVKFJpSaQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "inputEvent": "input",
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:40:18.166Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4375521789&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=tH%2B1bP3K%2BndlosVKFJpSaQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "input",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4375521789&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=tH%2B1bP3K%2BndlosVKFJpSaQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "inputEvent": "input",
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:40:18.651Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4375521789&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=tH%2B1bP3K%2BndlosVKFJpSaQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "input",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4375521789&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=tH%2B1bP3K%2BndlosVKFJpSaQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "inputEvent": "input",
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:40:18.966Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4375521789&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=tH%2B1bP3K%2BndlosVKFJpSaQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "click",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4375521789&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=tH%2B1bP3K%2BndlosVKFJpSaQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "x": 812,
+    "y": 253,
+    "button": 0,
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:40:21.359Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4375521789&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=tH%2B1bP3K%2BndlosVKFJpSaQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "click",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4375521789&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=tH%2B1bP3K%2BndlosVKFJpSaQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "x": 847,
+    "y": 266,
+    "button": 0,
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:40:23.727Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4375521789&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=tH%2B1bP3K%2BndlosVKFJpSaQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "click",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4375521789&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=tH%2B1bP3K%2BndlosVKFJpSaQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "x": 528,
+    "y": 220,
+    "button": 0,
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:40:26.551Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4375521789&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=tH%2B1bP3K%2BndlosVKFJpSaQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "input",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4375521789&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=tH%2B1bP3K%2BndlosVKFJpSaQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "inputEvent": "input",
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:40:28.753Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4375521789&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=tH%2B1bP3K%2BndlosVKFJpSaQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "click",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4375521789&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=tH%2B1bP3K%2BndlosVKFJpSaQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "x": 433,
+    "y": 160,
+    "button": 0,
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:40:31.839Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4375521789&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=tH%2B1bP3K%2BndlosVKFJpSaQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "click",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4375521789&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=tH%2B1bP3K%2BndlosVKFJpSaQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "x": 433,
+    "y": 160,
+    "button": 0,
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:40:32.030Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4375521789&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=tH%2B1bP3K%2BndlosVKFJpSaQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "input",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4375521789&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=tH%2B1bP3K%2BndlosVKFJpSaQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "inputEvent": "input",
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:40:35.731Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4375521789&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=tH%2B1bP3K%2BndlosVKFJpSaQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "click",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4375521789&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=tH%2B1bP3K%2BndlosVKFJpSaQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "x": 853,
+    "y": 288,
+    "button": 0,
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:40:37.466Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4375521789&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=tH%2B1bP3K%2BndlosVKFJpSaQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "click",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4375521789&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=tH%2B1bP3K%2BndlosVKFJpSaQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "x": 650,
+    "y": 463,
+    "button": 0,
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:40:39.958Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4375521789&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=tH%2B1bP3K%2BndlosVKFJpSaQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "click",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4375521789&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=tH%2B1bP3K%2BndlosVKFJpSaQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "x": 533,
+    "y": 422,
+    "button": 0,
+    "meta": {
+      "tag": "span",
+      "text": "Continuer",
+      "selector": "div._01c4edd6.d7951d81._0df2dd1a > div._176e0cd1._6c5855f1._6f69ed82 > div._5de606fd._176e0cd1._26fac69d:nth-of-type(1) > a._4101306c._6d2292a6._160ace1a > span.c9cadbff._0e20e365.ac5e1fac"
+    },
+    "ts": "2026-03-10T14:40:42.471Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4375521789&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=tH%2B1bP3K%2BndlosVKFJpSaQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "click",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4375521789&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=tH%2B1bP3K%2BndlosVKFJpSaQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "x": 846,
+    "y": 249,
+    "button": 0,
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:40:46.996Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4375521789&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=tH%2B1bP3K%2BndlosVKFJpSaQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "click",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4375521789&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=tH%2B1bP3K%2BndlosVKFJpSaQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "x": 846,
+    "y": 249,
+    "button": 0,
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:40:48.424Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4375521789&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=tH%2B1bP3K%2BndlosVKFJpSaQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "click",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4375521789&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=tH%2B1bP3K%2BndlosVKFJpSaQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "x": 846,
+    "y": 249,
+    "button": 0,
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:40:50.042Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4375521789&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=tH%2B1bP3K%2BndlosVKFJpSaQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "click",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4375521789&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=tH%2B1bP3K%2BndlosVKFJpSaQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "x": 831,
+    "y": 251,
+    "button": 0,
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:40:52.605Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4375521789&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=tH%2B1bP3K%2BndlosVKFJpSaQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "click",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4375521789&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=tH%2B1bP3K%2BndlosVKFJpSaQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "x": 801,
+    "y": 18,
+    "button": 0,
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:40:57.109Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4375521789&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=tH%2B1bP3K%2BndlosVKFJpSaQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "click",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4375521789&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=tH%2B1bP3K%2BndlosVKFJpSaQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "x": 271,
+    "y": 350,
+    "button": 0,
+    "meta": {
+      "tag": "span",
+      "text": "Consultant(e) Hyperautomation/ Robotic Process Automation (RPA)",
+      "selector": "div._176e0cd1._6c5855f1._6f69ed82:nth-of-type(1) > div._5de606fd.ac5e1fac._176e0cd1:nth-of-type(1) > div._5de606fd._176e0cd1._26fac69d > p._6ca8df11._5e021eff._85bef75d:nth-of-type(1) > span:nth-of-type(2)"
+    },
+    "ts": "2026-03-10T14:41:04.958Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4375521789&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=tH%2B1bP3K%2BndlosVKFJpSaQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "click",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4330514702&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=IWHZv2d50e2B4zUiOxTdLQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "x": 611,
+    "y": 436,
+    "button": 0,
+    "meta": {
+      "tag": "span",
+      "text": "Candidature simplifiée",
+      "selector": "div._5de606fd._176e0cd1._26fac69d > div._01c4edd6.d7951d81._0df2dd1a > div.e36aee90 > a._4101306c._6d2292a6._160ace1a > span.c9cadbff._0e20e365.ac5e1fac"
+    },
+    "ts": "2026-03-10T14:41:12.681Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4330514702&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=IWHZv2d50e2B4zUiOxTdLQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "click",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4330514702&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=IWHZv2d50e2B4zUiOxTdLQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "x": 438,
+    "y": 240,
+    "button": 0,
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:41:17.902Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4330514702&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=IWHZv2d50e2B4zUiOxTdLQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "input",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4330514702&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=IWHZv2d50e2B4zUiOxTdLQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "inputEvent": "input",
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:41:19.309Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4330514702&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=IWHZv2d50e2B4zUiOxTdLQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "input",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4330514702&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=IWHZv2d50e2B4zUiOxTdLQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "inputEvent": "input",
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:41:20.136Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4330514702&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=IWHZv2d50e2B4zUiOxTdLQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "input",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4330514702&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=IWHZv2d50e2B4zUiOxTdLQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "inputEvent": "input",
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:41:20.445Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4330514702&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=IWHZv2d50e2B4zUiOxTdLQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "input",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4330514702&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=IWHZv2d50e2B4zUiOxTdLQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "inputEvent": "input",
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:41:20.564Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4330514702&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=IWHZv2d50e2B4zUiOxTdLQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "input",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4330514702&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=IWHZv2d50e2B4zUiOxTdLQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "inputEvent": "input",
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:41:20.712Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4330514702&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=IWHZv2d50e2B4zUiOxTdLQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "click",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4330514702&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=IWHZv2d50e2B4zUiOxTdLQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "x": 375,
+    "y": 279,
+    "button": 0,
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:41:21.997Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4330514702&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=IWHZv2d50e2B4zUiOxTdLQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "click",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4330514702&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=IWHZv2d50e2B4zUiOxTdLQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "x": 416,
+    "y": 95,
+    "button": 0,
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:41:25.492Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4330514702&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=IWHZv2d50e2B4zUiOxTdLQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "input",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4330514702&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=IWHZv2d50e2B4zUiOxTdLQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "inputEvent": "input",
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:41:26.696Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4330514702&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=IWHZv2d50e2B4zUiOxTdLQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "input",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4330514702&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=IWHZv2d50e2B4zUiOxTdLQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "inputEvent": "input",
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:41:27.017Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4330514702&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=IWHZv2d50e2B4zUiOxTdLQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "input",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4330514702&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=IWHZv2d50e2B4zUiOxTdLQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "inputEvent": "input",
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:41:27.483Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4330514702&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=IWHZv2d50e2B4zUiOxTdLQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "input",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4330514702&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=IWHZv2d50e2B4zUiOxTdLQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "inputEvent": "input",
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:41:27.661Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4330514702&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=IWHZv2d50e2B4zUiOxTdLQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "input",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4330514702&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=IWHZv2d50e2B4zUiOxTdLQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "inputEvent": "input",
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:41:28.389Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4330514702&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=IWHZv2d50e2B4zUiOxTdLQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "input",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4330514702&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=IWHZv2d50e2B4zUiOxTdLQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "inputEvent": "input",
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:41:29.012Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4330514702&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=IWHZv2d50e2B4zUiOxTdLQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "input",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4330514702&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=IWHZv2d50e2B4zUiOxTdLQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "inputEvent": "input",
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:41:29.388Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4330514702&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=IWHZv2d50e2B4zUiOxTdLQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "input",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4330514702&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=IWHZv2d50e2B4zUiOxTdLQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "inputEvent": "input",
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:41:29.567Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4330514702&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=IWHZv2d50e2B4zUiOxTdLQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "input",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4330514702&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=IWHZv2d50e2B4zUiOxTdLQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "inputEvent": "input",
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:41:29.981Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4330514702&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=IWHZv2d50e2B4zUiOxTdLQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "input",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4330514702&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=IWHZv2d50e2B4zUiOxTdLQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "inputEvent": "input",
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:41:30.217Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4330514702&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=IWHZv2d50e2B4zUiOxTdLQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "click",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4330514702&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=IWHZv2d50e2B4zUiOxTdLQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "x": 837,
+    "y": 247,
+    "button": 0,
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:41:32.397Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4330514702&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=IWHZv2d50e2B4zUiOxTdLQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "click",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4330514702&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=IWHZv2d50e2B4zUiOxTdLQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "x": 831,
+    "y": 251,
+    "button": 0,
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:41:35.089Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4330514702&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=IWHZv2d50e2B4zUiOxTdLQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "click",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4330514702&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=IWHZv2d50e2B4zUiOxTdLQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "x": 831,
+    "y": 251,
+    "button": 0,
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:41:38.523Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4330514702&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=IWHZv2d50e2B4zUiOxTdLQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "click",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4330514702&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=IWHZv2d50e2B4zUiOxTdLQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "x": 835,
+    "y": 243,
+    "button": 0,
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:41:41.822Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4330514702&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=IWHZv2d50e2B4zUiOxTdLQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "click",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4330514702&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=IWHZv2d50e2B4zUiOxTdLQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "x": 240,
+    "y": 175,
+    "button": 0,
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:41:45.479Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4330514702&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=IWHZv2d50e2B4zUiOxTdLQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "click",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4330514702&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=IWHZv2d50e2B4zUiOxTdLQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "x": 240,
+    "y": 175,
+    "button": 0,
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:41:45.488Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4330514702&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=IWHZv2d50e2B4zUiOxTdLQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "type": "input",
+    "url": "https://www.linkedin.com/jobs/search-results/?currentJobId=4330514702&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=IWHZv2d50e2B4zUiOxTdLQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875",
+    "inputEvent": "input",
+    "meta": {
+      "tag": "div",
+      "id": "interop-outlet",
+      "selector": "#interop-outlet"
+    },
+    "ts": "2026-03-10T14:41:45.488Z",
+    "tabId": 1681424721,
+    "tabUrl": "https://www.linkedin.com/jobs/search-results/?currentJobId=4330514702&eBP=NON_CHARGEABLE_CHANNEL&refId=70RYMySQTMr3DfCBPJdHGw%3D%3D&trackingId=IWHZv2d50e2B4zUiOxTdLQ%3D%3D&keywords=rpa&origin=JOB_SEARCH_PAGE_LOCATION_AUTOCOMPLETE&geoId=105015875"
+  },
+  {
+    "ts": "2026-03-10T14:41:53.334Z",
+    "type": "recording_paused"
+  },
+  {
+    "ts": "2026-03-10T14:41:59.010Z",
+    "type": "session_end"
+  }
+]
