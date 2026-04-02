@@ -404,6 +404,26 @@
     return /location|city|ville|lieu|localisation|adresse|région|region|where/i.test(label);
   }
 
+  // ── Get user location from session search location or profile ────────────
+  async function getUserLocation() {
+    try {
+      const data = await chrome.storage.local.get(["session", "profile"]);
+      // Prefer session search location (the city user is job-searching in)
+      const sessionLoc = data.session?.location || "";
+      const profileLoc = data.profile?.location || "";
+      // Use session location first (more specific, e.g. "Paris"), fallback to profile
+      const raw = sessionLoc || profileLoc;
+      if (!raw) return null;
+      // Strip country suffix: "Paris, France" → "Paris", "Lyon, Auvergne-Rhône-Alpes, France" → "Lyon"
+      const city = raw.split(",")[0].trim();
+      log(`[DEBUG] getUserLocation: session="${sessionLoc}", profile="${profileLoc}" → city="${city}"`, "info");
+      return city;
+    } catch (err) {
+      log(`[DEBUG] getUserLocation error: ${err.message}`, "warn");
+      return null;
+    }
+  }
+
   // ── Fill a Single Form Field ────────────────────────────────────────────
   async function fillField(field, jobInfo) {
     if (field.value && field.type !== "select" && field.type !== "radio" && field.type !== "checkbox") {
@@ -443,6 +463,28 @@
         return;
       }
 
+      // ── Special handling: location/city fields — bypass AI, use session/profile location ──
+      if ((field.type === "text" || field.type === "textarea") && isLocationField(field.label)) {
+        const userCity = await getUserLocation();
+        if (userCity) {
+          log(`[DEBUG] Location field "${field.label}" → using user location: "${userCity}"`, "info");
+          await humanType(field.element, userCity);
+          const typeaheadOk = await handleTypeaheadDropdown(field.element);
+          if (!typeaheadOk) {
+            log(`[DEBUG] Location typeahead failed for "${userCity}" — retry with shorter text`, "info");
+            field.element.value = "";
+            field.element.dispatchEvent(new Event("input", { bubbles: true }));
+            await sleep(500);
+            const shortQuery = userCity.substring(0, Math.min(userCity.length, 5));
+            await humanType(field.element, shortQuery);
+            await handleTypeaheadDropdown(field.element, 4);
+          }
+          return;
+        }
+        // Fallback to AI if no stored location
+        log(`[DEBUG] No stored location found, falling back to AI for "${field.label}"`, "info");
+      }
+
       const response = await chrome.runtime.sendMessage({
         action: "generateAnswer", question: field.label,
         fieldType: field.type, options: field.options || [], jobInfo,
@@ -457,11 +499,10 @@
         log(`[DEBUG] Champ numérique "${field.label}" => ${answer}`, "info");
       }
 
-      // For location/city typeahead fields, use just city name (no country)
+      // For location/city fields that fell through (no stored location), strip country suffix from AI answer
       if ((field.type === "text" || field.type === "textarea") && isLocationField(field.label)) {
-        // Strip country suffix: "Paris, France" → "Paris"
         answer = answer.split(",")[0].trim();
-        log(`[DEBUG] Location field → shortened to: "${answer}"`, "info");
+        log(`[DEBUG] Location field AI answer → shortened to: "${answer}"`, "info");
       }
 
       await sleep(randomDelay(300, 800));
@@ -480,13 +521,12 @@
           await humanType(field.element, answer);
           // Handle typeahead/autocomplete dropdowns (location, city, etc.)
           const typeaheadOk = await handleTypeaheadDropdown(field.element);
-          // If location field and typeahead failed, try clearing and retyping shorter query
+          // If location field and typeahead failed (AI fallback path), try shorter query
           if (!typeaheadOk && isLocationField(field.label)) {
-            log(`[DEBUG] Location typeahead failed — retry with shorter text`, "info");
+            log(`[DEBUG] Location typeahead failed (AI fallback) — retry with shorter text`, "info");
             field.element.value = "";
             field.element.dispatchEvent(new Event("input", { bubbles: true }));
             await sleep(500);
-            // Type just first 3+ chars to trigger broader typeahead
             const shortQuery = answer.substring(0, Math.min(answer.length, 5));
             await humanType(field.element, shortQuery);
             await handleTypeaheadDropdown(field.element, 4);

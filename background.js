@@ -247,6 +247,7 @@ function getDefaultAnswer(question, fieldType, profile) {
   if (/disponib|start\s*date|quand|when.*start|date.*début/i.test(q)) return profile.availability || "Immédiatement";
   if (/visa|autori[sz]ation.*travail|work.*autho|droit.*travail|legally/i.test(q)) return "Oui";
   if (/d[ée]m[ée]nag|relocat|mobili/i.test(q)) return "Oui";
+  if (/location|city|ville|lieu|localisation|adresse|r[ée]gion|where.*(?:live|based|located)/i.test(q)) return profile.location || "France";
   if (/lettre|cover\s*letter|motivation|pourquoi|why.*interested/i.test(q)) {
     return profile.coverLetterDefault ||
       `Passionné par ce poste, j'apporte ${profile.experience || "10+ ans d'expérience"} en ${profile.stack || "développement web"}. Disponible immédiatement.`;
