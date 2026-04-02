@@ -55,7 +55,7 @@
     return null;
   }
 
-  async function humanType(element, text) {
+  async function humanType(element, text, { skipBlur = false } = {}) {
     element.focus();
     element.dispatchEvent(new Event("focus", { bubbles: true }));
     if (element.tagName === "INPUT" || element.tagName === "TEXTAREA") {
@@ -76,7 +76,10 @@
       await sleep(randomDelay(10, 40));
     }
     element.dispatchEvent(new Event("change", { bubbles: true }));
-    element.dispatchEvent(new Event("blur", { bubbles: true }));
+    // Skip blur for typeahead fields — blur closes the dropdown before we can select
+    if (!skipBlur) {
+      element.dispatchEvent(new Event("blur", { bubbles: true }));
+    }
   }
 
   function setNativeValue(element, value) {
@@ -107,7 +110,26 @@
 
   // ── Typeahead / Autocomplete Dropdown Handler ──────────────────────────
   async function handleTypeaheadDropdown(inputElement, retries = 3) {
+    // Search scope: modal first, then document
+    const modal = inputElement.closest('div[role="dialog"], div.artdeco-modal, div.jobs-easy-apply-modal') || document;
+
     for (let attempt = 1; attempt <= retries; attempt++) {
+      // Re-focus input to ensure dropdown stays open (blur may have closed it)
+      inputElement.focus();
+      inputElement.dispatchEvent(new Event("focus", { bubbles: true }));
+
+      // Small input event to re-trigger typeahead if dropdown closed
+      if (attempt > 1) {
+        const currentVal = inputElement.value;
+        // Remove last char and re-add to trigger new search
+        inputElement.value = currentVal.slice(0, -1);
+        inputElement.dispatchEvent(new Event("input", { bubbles: true }));
+        await sleep(200);
+        inputElement.value = currentVal;
+        inputElement.dispatchEvent(new Event("input", { bubbles: true }));
+        log(`[DEBUG] Typeahead: retry ${attempt}/${retries} — re-triggered input`, "info");
+      }
+
       // Wait for typeahead dropdown to appear (LinkedIn debounces input)
       await sleep(800 + attempt * 400);
 
@@ -118,18 +140,22 @@
         '[id*="typeahead"][role="listbox"]',
         'div.typeahead-results',
         'ul.typeahead-results',
+        '[class*="typeahead"] ul',
+        '[class*="typeahead"] div[role="option"]',
       ];
 
       for (const sel of dropdownSelectors) {
-        const dropdown = document.querySelector(sel);
+        // Search in modal scope first, then document-wide
+        const dropdown = modal.querySelector(sel) || document.querySelector(sel);
         if (dropdown && dropdown.offsetParent !== null) {
           const options = [
             ...dropdown.querySelectorAll('[role="option"]'),
             ...dropdown.querySelectorAll('li.basic-typeahead__selectable'),
             ...dropdown.querySelectorAll('li[id*="typeahead"]'),
+            ...dropdown.querySelectorAll('div[id*="typeahead-option"]'),
             ...dropdown.querySelectorAll('li'),
           ];
-          // Deduplicate
+          // Deduplicate and filter visible
           const seen = new Set();
           const uniqueOptions = options.filter(o => {
             if (seen.has(o) || o.offsetParent === null) return false;
@@ -138,28 +164,53 @@
 
           if (uniqueOptions.length > 0) {
             const first = uniqueOptions[0];
-            log(`[DEBUG] Typeahead: ${uniqueOptions.length} option(s) — sélection: "${first.textContent.trim().substring(0, 50)}"`, "info");
-            await humanClick(first);
+            log(`[DEBUG] Typeahead: ${uniqueOptions.length} option(s) — sélection: "${first.textContent.trim().substring(0, 60)}"`, "info");
+
+            // Method 1: mousedown + click (LinkedIn React listens to mousedown)
+            first.scrollIntoView({ block: "nearest" });
+            await sleep(100);
+            first.dispatchEvent(new MouseEvent("mouseenter", { bubbles: true }));
+            await sleep(50);
+            first.dispatchEvent(new MouseEvent("mousedown", { bubbles: true }));
+            await sleep(50);
+            first.dispatchEvent(new MouseEvent("mouseup", { bubbles: true }));
+            first.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+            first.click();
+            await sleep(600);
+
+            // Verify dropdown closed (selection successful)
+            const stillOpen = modal.querySelector(sel) || document.querySelector(sel);
+            if (!stillOpen || stillOpen.offsetParent === null || stillOpen.querySelectorAll('[role="option"]').length === 0) {
+              log(`[DEBUG] Typeahead: dropdown closed — selection confirmed`, "info");
+              return true;
+            }
+
+            // Method 2: try ArrowDown + Enter as backup selection
+            log(`[DEBUG] Typeahead: click may not have registered — trying ArrowDown+Enter`, "info");
+            inputElement.focus();
+            inputElement.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowDown", code: "ArrowDown", keyCode: 40, bubbles: true }));
+            await sleep(150);
+            inputElement.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter", code: "Enter", keyCode: 13, bubbles: true }));
+            inputElement.dispatchEvent(new KeyboardEvent("keyup", { key: "Enter", code: "Enter", keyCode: 13, bubbles: true }));
             await sleep(600);
             return true;
           }
         }
       }
 
-      // Fallback: try arrow down + Enter to force select first dropdown item
+      // Last attempt: arrow down + Enter as pure keyboard fallback
       if (attempt === retries) {
-        log(`[DEBUG] Typeahead: aucun dropdown trouvé — tentative ArrowDown+Enter`, "info");
-        inputElement.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowDown", bubbles: true }));
+        log(`[DEBUG] Typeahead: no dropdown found — ArrowDown+Enter fallback`, "info");
+        inputElement.focus();
+        inputElement.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowDown", code: "ArrowDown", keyCode: 40, bubbles: true }));
         await sleep(300);
-        inputElement.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter", bubbles: true }));
-        inputElement.dispatchEvent(new KeyboardEvent("keyup", { key: "Enter", bubbles: true }));
+        inputElement.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter", code: "Enter", keyCode: 13, bubbles: true }));
+        inputElement.dispatchEvent(new KeyboardEvent("keyup", { key: "Enter", code: "Enter", keyCode: 13, bubbles: true }));
         await sleep(600);
+        // Final fallback: blur to dismiss, then check
+        inputElement.dispatchEvent(new Event("blur", { bubbles: true }));
         return false;
       }
-
-      // Between retries, trigger an extra input event to re-fire typeahead
-      log(`[DEBUG] Typeahead: retry ${attempt}/${retries} — re-trigger input`, "info");
-      inputElement.dispatchEvent(new Event("input", { bubbles: true }));
     }
     return false;
   }
@@ -468,7 +519,8 @@
         const userCity = await getUserLocation();
         if (userCity) {
           log(`[DEBUG] Location field "${field.label}" → using user location: "${userCity}"`, "info");
-          await humanType(field.element, userCity);
+          // skipBlur: true — keep dropdown open for typeahead selection
+          await humanType(field.element, userCity, { skipBlur: true });
           const typeaheadOk = await handleTypeaheadDropdown(field.element);
           if (!typeaheadOk) {
             log(`[DEBUG] Location typeahead failed for "${userCity}" — retry with shorter text`, "info");
@@ -476,9 +528,11 @@
             field.element.dispatchEvent(new Event("input", { bubbles: true }));
             await sleep(500);
             const shortQuery = userCity.substring(0, Math.min(userCity.length, 5));
-            await humanType(field.element, shortQuery);
+            await humanType(field.element, shortQuery, { skipBlur: true });
             await handleTypeaheadDropdown(field.element, 4);
           }
+          // Now blur after typeahead is done
+          field.element.dispatchEvent(new Event("blur", { bubbles: true }));
           return;
         }
         // Fallback to AI if no stored location
@@ -518,18 +572,24 @@
         }
         case "text": case "tel": case "email": case "url":
         case "textarea": {
-          await humanType(field.element, answer);
+          // For location/typeahead fields, skip blur to keep dropdown open
+          const needsTypeahead = isLocationField(field.label);
+          await humanType(field.element, answer, { skipBlur: needsTypeahead });
           // Handle typeahead/autocomplete dropdowns (location, city, etc.)
           const typeaheadOk = await handleTypeaheadDropdown(field.element);
           // If location field and typeahead failed (AI fallback path), try shorter query
-          if (!typeaheadOk && isLocationField(field.label)) {
+          if (!typeaheadOk && needsTypeahead) {
             log(`[DEBUG] Location typeahead failed (AI fallback) — retry with shorter text`, "info");
             field.element.value = "";
             field.element.dispatchEvent(new Event("input", { bubbles: true }));
             await sleep(500);
             const shortQuery = answer.substring(0, Math.min(answer.length, 5));
-            await humanType(field.element, shortQuery);
+            await humanType(field.element, shortQuery, { skipBlur: true });
             await handleTypeaheadDropdown(field.element, 4);
+          }
+          // Blur after typeahead handling
+          if (needsTypeahead) {
+            field.element.dispatchEvent(new Event("blur", { bubbles: true }));
           }
           break;
         }
