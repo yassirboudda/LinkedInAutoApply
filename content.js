@@ -1,6 +1,7 @@
 // ============================================================================
-// LinkedIn AutoApply — Content Script v1.6.0
+// LinkedIn AutoApply — Content Script v1.7.0
 // Handles DOM interactions: form filling, modal navigation, multi-page session.
+// v1.7.0: Fix date fields, location typeahead selection, required checkboxes
 // v1.6.0: Fix clickJobCard — use URL currentJobId param (no <a> click/navigation)
 // v1.5.0: Typeahead handling, button retry
 // v1.4.0: Direct storage reads, blacklist, improved button detection
@@ -9,7 +10,7 @@
   if (window.__LinkedInAutoApply_loaded) return;
   window.__LinkedInAutoApply_loaded = true;
 
-  const VERSION = "1.6.0";
+  const VERSION = "1.7.0";
   let isRunning = false;
   let shouldStop = false;
   const sessionStats = { applied: 0, skipped: 0, errors: 0 };
@@ -105,42 +106,60 @@
   }
 
   // ── Typeahead / Autocomplete Dropdown Handler ──────────────────────────
-  async function handleTypeaheadDropdown(inputElement) {
-    // Wait for typeahead dropdown to appear (LinkedIn debounces input)
-    await sleep(800);
+  async function handleTypeaheadDropdown(inputElement, retries = 3) {
+    for (let attempt = 1; attempt <= retries; attempt++) {
+      // Wait for typeahead dropdown to appear (LinkedIn debounces input)
+      await sleep(800 + attempt * 400);
 
-    const dropdownSelectors = [
-      'div[role="listbox"]',
-      'ul[role="listbox"]',
-      '.basic-typeahead__triggered-content',
-      '[id*="typeahead"][role="listbox"]',
-      'div.typeahead-results',
-    ];
+      const dropdownSelectors = [
+        'div[role="listbox"]',
+        'ul[role="listbox"]',
+        '.basic-typeahead__triggered-content',
+        '[id*="typeahead"][role="listbox"]',
+        'div.typeahead-results',
+        'ul.typeahead-results',
+      ];
 
-    for (const sel of dropdownSelectors) {
-      const dropdown = document.querySelector(sel);
-      if (dropdown && dropdown.offsetParent !== null) {
-        const options = [
-          ...dropdown.querySelectorAll('[role="option"]'),
-          ...dropdown.querySelectorAll('li.basic-typeahead__selectable'),
-          ...dropdown.querySelectorAll('li[id*="typeahead"]'),
-          ...dropdown.querySelectorAll('li'),
-        ];
-        // Deduplicate
-        const seen = new Set();
-        const uniqueOptions = options.filter(o => {
-          if (seen.has(o) || o.offsetParent === null) return false;
-          seen.add(o); return true;
-        });
+      for (const sel of dropdownSelectors) {
+        const dropdown = document.querySelector(sel);
+        if (dropdown && dropdown.offsetParent !== null) {
+          const options = [
+            ...dropdown.querySelectorAll('[role="option"]'),
+            ...dropdown.querySelectorAll('li.basic-typeahead__selectable'),
+            ...dropdown.querySelectorAll('li[id*="typeahead"]'),
+            ...dropdown.querySelectorAll('li'),
+          ];
+          // Deduplicate
+          const seen = new Set();
+          const uniqueOptions = options.filter(o => {
+            if (seen.has(o) || o.offsetParent === null) return false;
+            seen.add(o); return true;
+          });
 
-        if (uniqueOptions.length > 0) {
-          const first = uniqueOptions[0];
-          log(`[DEBUG] Typeahead: ${uniqueOptions.length} option(s) — sélection: "${first.textContent.trim().substring(0, 50)}"`, "info");
-          await humanClick(first);
-          await sleep(500);
-          return true;
+          if (uniqueOptions.length > 0) {
+            const first = uniqueOptions[0];
+            log(`[DEBUG] Typeahead: ${uniqueOptions.length} option(s) — sélection: "${first.textContent.trim().substring(0, 50)}"`, "info");
+            await humanClick(first);
+            await sleep(600);
+            return true;
+          }
         }
       }
+
+      // Fallback: try arrow down + Enter to force select first dropdown item
+      if (attempt === retries) {
+        log(`[DEBUG] Typeahead: aucun dropdown trouvé — tentative ArrowDown+Enter`, "info");
+        inputElement.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowDown", bubbles: true }));
+        await sleep(300);
+        inputElement.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter", bubbles: true }));
+        inputElement.dispatchEvent(new KeyboardEvent("keyup", { key: "Enter", bubbles: true }));
+        await sleep(600);
+        return false;
+      }
+
+      // Between retries, trigger an extra input event to re-fire typeahead
+      log(`[DEBUG] Typeahead: retry ${attempt}/${retries} — re-trigger input`, "info");
+      inputElement.dispatchEvent(new Event("input", { bubbles: true }));
     }
     return false;
   }
@@ -258,7 +277,7 @@
     const fields = [];
     if (!modal) return fields;
 
-    const inputs = $$('input[type="text"], input[type="tel"], input[type="email"], input[type="number"], input[type="url"], input:not([type])', modal);
+    const inputs = $$('input[type="text"], input[type="tel"], input[type="email"], input[type="number"], input[type="url"], input[type="date"], input:not([type])', modal);
     for (const input of inputs) {
       if (input.offsetParent === null || input.disabled) continue;
       if (input.type === "hidden" || input.type === "radio" || input.type === "checkbox") continue;
@@ -365,6 +384,26 @@
     return input.name || input.id || "Unknown field";
   }
 
+  // ── Date Detection (for date availability / start date fields) ──────────
+  function isDateQuestion(label) {
+    return /date|disponib|start\s*date|début|quand.*commencer|when.*start|estimée/i.test(label);
+  }
+
+  function getAvailabilityDate() {
+    // Return a date ~7 days from now in YYYY-MM-DD and DD/MM/YYYY formats
+    const d = new Date();
+    d.setDate(d.getDate() + 7);
+    const yyyy = d.getFullYear();
+    const mm = String(d.getMonth() + 1).padStart(2, "0");
+    const dd = String(d.getDate()).padStart(2, "0");
+    return { iso: `${yyyy}-${mm}-${dd}`, fr: `${dd}/${mm}/${yyyy}`, short: `${dd}/${mm}/${yyyy}` };
+  }
+
+  // ── Location field detection ─────────────────────────────────────────────
+  function isLocationField(label) {
+    return /location|city|ville|lieu|localisation|adresse|région|region|where/i.test(label);
+  }
+
   // ── Fill a Single Form Field ────────────────────────────────────────────
   async function fillField(field, jobInfo) {
     if (field.value && field.type !== "select" && field.type !== "radio" && field.type !== "checkbox") {
@@ -378,6 +417,32 @@
     log(`Remplissage: "${field.label}" (${field.type})`);
 
     try {
+      // ── Special handling: date input fields ──
+      if (field.element.type === "date" || (field.type === "text" && isDateQuestion(field.label))) {
+        const dates = getAvailabilityDate();
+        const el = field.element;
+        if (el.type === "date") {
+          // HTML5 date input: use ISO format
+          setNativeValue(el, dates.iso);
+          log(`OK "${field.label}" = "${dates.iso}" (date input)`, "success");
+        } else {
+          // Text field expecting a date: try DD/MM/YYYY
+          await humanType(el, dates.fr);
+          await sleep(300);
+          // If there's a validation error, try ISO format
+          const container = el.closest("div");
+          const hasError = container && container.querySelector('[class*="error"], [class*="invalid"], [role="alert"]');
+          if (hasError) {
+            log(`[DEBUG] Date format DD/MM/YYYY rejected, trying YYYY-MM-DD`, "info");
+            el.value = "";
+            el.dispatchEvent(new Event("input", { bubbles: true }));
+            await humanType(el, dates.iso);
+          }
+          log(`OK "${field.label}" = "${dates.fr}" (date text)`, "success");
+        }
+        return;
+      }
+
       const response = await chrome.runtime.sendMessage({
         action: "generateAnswer", question: field.label,
         fieldType: field.type, options: field.options || [], jobInfo,
@@ -392,6 +457,13 @@
         log(`[DEBUG] Champ numérique "${field.label}" => ${answer}`, "info");
       }
 
+      // For location/city typeahead fields, use just city name (no country)
+      if ((field.type === "text" || field.type === "textarea") && isLocationField(field.label)) {
+        // Strip country suffix: "Paris, France" → "Paris"
+        answer = answer.split(",")[0].trim();
+        log(`[DEBUG] Location field → shortened to: "${answer}"`, "info");
+      }
+
       await sleep(randomDelay(300, 800));
 
       switch (field.type) {
@@ -404,11 +476,23 @@
           break;
         }
         case "text": case "tel": case "email": case "url":
-        case "textarea":
+        case "textarea": {
           await humanType(field.element, answer);
           // Handle typeahead/autocomplete dropdowns (location, city, etc.)
-          await handleTypeaheadDropdown(field.element);
+          const typeaheadOk = await handleTypeaheadDropdown(field.element);
+          // If location field and typeahead failed, try clearing and retyping shorter query
+          if (!typeaheadOk && isLocationField(field.label)) {
+            log(`[DEBUG] Location typeahead failed — retry with shorter text`, "info");
+            field.element.value = "";
+            field.element.dispatchEvent(new Event("input", { bubbles: true }));
+            await sleep(500);
+            // Type just first 3+ chars to trigger broader typeahead
+            const shortQuery = answer.substring(0, Math.min(answer.length, 5));
+            await humanType(field.element, shortQuery);
+            await handleTypeaheadDropdown(field.element, 4);
+          }
           break;
+        }
         case "select": {
           const options = [...field.element.options];
           let idx = options.findIndex(o => o.text.toLowerCase().trim() === answer.toLowerCase().trim());
@@ -437,8 +521,22 @@
           break;
         }
         case "checkbox": {
-          const shouldCheck = /oui|yes|true|1|accept|j'accepte/i.test(answer);
-          if (shouldCheck && !field.element.checked) await humanClick(field.element);
+          // v1.7.0: Required checkboxes (terms, proceed, accept) are always checked
+          const lbl = (field.label || "").toLowerCase();
+          const isRequired = field.required || field.element.required ||
+            field.element.getAttribute("aria-required") === "true";
+          const isMandatoryContext = /proceed|accept|terms|conditions|agree|certif|confirm|j'accepte|j'atteste|j'autorise|engagement|consent/i.test(lbl);
+          const shouldCheck = isRequired || isMandatoryContext || /oui|yes|true|1|accept|j'accepte/i.test(answer);
+          if (shouldCheck && !field.element.checked) {
+            await humanClick(field.element);
+            // Verify it got checked; if not, try direct property set
+            if (!field.element.checked) {
+              field.element.checked = true;
+              field.element.dispatchEvent(new Event("change", { bubbles: true }));
+              field.element.dispatchEvent(new Event("input", { bubbles: true }));
+              log(`[DEBUG] Checkbox force-checked via property`, "info");
+            }
+          }
           break;
         }
         case "dropdown-button": {
