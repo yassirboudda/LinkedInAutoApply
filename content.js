@@ -1,7 +1,11 @@
 // ============================================================================
-// LinkedIn AutoApply — Content Script v1.7.0
+// LinkedIn AutoApply — Content Script v1.8.0
 // Handles DOM interactions: form filling, modal navigation, multi-page session.
-// v1.7.0: Fix date fields, location typeahead selection, required checkboxes
+// v1.8.0: Fix stuck loop — force-close on error, submit retry limit, error toast
+//         detection, detailed dev logging, per-job timeout, skip typeahead on
+//         non-typeahead fields (phone/email/etc)
+// v1.7.x: Fix date fields, location typeahead selection, required checkboxes,
+//         use user location from session/profile, skipBlur for typeahead
 // v1.6.0: Fix clickJobCard — use URL currentJobId param (no <a> click/navigation)
 // v1.5.0: Typeahead handling, button retry
 // v1.4.0: Direct storage reads, blacklist, improved button detection
@@ -10,7 +14,7 @@
   if (window.__LinkedInAutoApply_loaded) return;
   window.__LinkedInAutoApply_loaded = true;
 
-  const VERSION = "1.7.0";
+  const VERSION = "1.8.0";
   let isRunning = false;
   let shouldStop = false;
   const sessionStats = { applied: 0, skipped: 0, errors: 0 };
@@ -21,8 +25,16 @@
 
   function log(msg, level = "info") {
     const prefix = { error: "❌", warn: "⚠️", success: "✅", info: "ℹ️" }[level] || "ℹ️";
-    console.log(`[LinkedInAutoApply] ${prefix} ${msg}`);
-    chrome.runtime.sendMessage({ action: "addLog", message: msg, level }).catch(() => {});
+    const ts = new Date().toISOString().slice(11, 23); // HH:mm:ss.SSS
+    console.log(`[LinkedInAutoApply ${ts}] ${prefix} ${msg}`);
+    chrome.runtime.sendMessage({ action: "addLog", message: `[${ts}] ${msg}`, level }).catch(() => {});
+  }
+
+  // ── Dev logging: detailed debug output for diagnosing stuck loops ──────
+  function devLog(context, msg, data = {}) {
+    const ts = new Date().toISOString().slice(11, 23);
+    const dataStr = Object.keys(data).length > 0 ? " | " + JSON.stringify(data) : "";
+    console.log(`[DEV ${ts}] [${context}] ${msg}${dataStr}`);
   }
 
   // ── DOM Helpers ─────────────────────────────────────────────────────────
@@ -572,23 +584,21 @@
         }
         case "text": case "tel": case "email": case "url":
         case "textarea": {
-          // For location/typeahead fields, skip blur to keep dropdown open
+          // Only run typeahead for location-type fields — skip for phone/email/etc
           const needsTypeahead = isLocationField(field.label);
           await humanType(field.element, answer, { skipBlur: needsTypeahead });
-          // Handle typeahead/autocomplete dropdowns (location, city, etc.)
-          const typeaheadOk = await handleTypeaheadDropdown(field.element);
-          // If location field and typeahead failed (AI fallback path), try shorter query
-          if (!typeaheadOk && needsTypeahead) {
-            log(`[DEBUG] Location typeahead failed (AI fallback) — retry with shorter text`, "info");
-            field.element.value = "";
-            field.element.dispatchEvent(new Event("input", { bubbles: true }));
-            await sleep(500);
-            const shortQuery = answer.substring(0, Math.min(answer.length, 5));
-            await humanType(field.element, shortQuery, { skipBlur: true });
-            await handleTypeaheadDropdown(field.element, 4);
-          }
-          // Blur after typeahead handling
           if (needsTypeahead) {
+            devLog("fillField", "Running typeahead for location field", { label: field.label });
+            const typeaheadOk = await handleTypeaheadDropdown(field.element);
+            if (!typeaheadOk) {
+              log(`[DEBUG] Location typeahead failed (AI fallback) — retry with shorter text`, "info");
+              field.element.value = "";
+              field.element.dispatchEvent(new Event("input", { bubbles: true }));
+              await sleep(500);
+              const shortQuery = answer.substring(0, Math.min(answer.length, 5));
+              await humanType(field.element, shortQuery, { skipBlur: true });
+              await handleTypeaheadDropdown(field.element, 4);
+            }
             field.element.dispatchEvent(new Event("blur", { bubbles: true }));
           }
           break;
@@ -815,6 +825,111 @@
     return "in_progress";
   }
 
+  // ── Detect LinkedIn error toasts/banners OUTSIDE the modal ──────────────
+  function detectPageError() {
+    // LinkedIn shows error toasts as artdeco-toast or notification banners
+    const toastSelectors = [
+      '.artdeco-toast-item--error',
+      'div.artdeco-toast-item',
+      '[role="alert"]',
+      '.artdeco-inline-feedback--error',
+      '.notification-badge',
+    ];
+    for (const sel of toastSelectors) {
+      for (const el of $$(sel)) {
+        const text = el.textContent.toLowerCase();
+        if (text.includes("erreur") || text.includes("error") ||
+            text.includes("something went wrong") || text.includes("une erreur") ||
+            text.includes("impossible") || text.includes("failed") ||
+            text.includes("réessayer") || text.includes("try again")) {
+          devLog("detectPageError", "Error toast found", { text: text.substring(0, 100) });
+          return text.substring(0, 120);
+        }
+      }
+    }
+    return null;
+  }
+
+  // ── Detect validation errors inside the modal ──────────────────────────
+  function detectValidationErrors(modal) {
+    if (!modal) return [];
+    const errors = [];
+    const errorSelectors = [
+      '[class*="error"]',
+      '[class*="invalid"]',
+      '[role="alert"]',
+      '.artdeco-inline-feedback--error',
+      '.fb-dash-form-element__error-field',
+    ];
+    for (const sel of errorSelectors) {
+      for (const el of $$(sel, modal)) {
+        const text = el.textContent.trim();
+        if (text && text.length > 2 && text.length < 200) {
+          errors.push(text);
+        }
+      }
+    }
+    return [...new Set(errors)]; // deduplicate
+  }
+
+  // ── Force close the modal and discard dialog ───────────────────────────
+  async function forceCloseModal(reason = "unknown") {
+    log(`[FORCE-CLOSE] Fermeture forcée du modal — raison: ${reason}`, "warn");
+    devLog("forceCloseModal", "Attempting force close", { reason });
+
+    // Try 1: dismiss button inside modal
+    let modal = isModalOpen();
+    if (modal) {
+      const dismissBtn = findDismissButton(modal);
+      if (dismissBtn) {
+        devLog("forceCloseModal", "Found dismiss button, clicking");
+        await humanClick(dismissBtn);
+        await sleep(800);
+      }
+    }
+
+    // Handle the "discard your application?" confirmation dialog
+    await handleDiscardDialog();
+    await sleep(500);
+
+    // Try 2: if still open, try broader search
+    modal = isModalOpen();
+    if (modal) {
+      devLog("forceCloseModal", "Modal still open after dismiss — trying Escape key");
+      document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", code: "Escape", keyCode: 27, bubbles: true }));
+      await sleep(500);
+      await handleDiscardDialog();
+      await sleep(500);
+    }
+
+    // Try 3: if STILL open, click any close/dismiss/X button anywhere
+    modal = isModalOpen();
+    if (modal) {
+      devLog("forceCloseModal", "Modal STILL open — trying all close buttons");
+      const allButtons = $$("button");
+      for (const btn of allButtons) {
+        const aria = (btn.getAttribute("aria-label") || "").toLowerCase();
+        const text = btn.textContent.trim().toLowerCase();
+        if (aria.includes("dismiss") || aria.includes("fermer") || aria.includes("close") ||
+            text === "×" || text === "x") {
+          btn.click();
+          await sleep(500);
+          await handleDiscardDialog();
+          break;
+        }
+      }
+    }
+
+    // Final check
+    modal = isModalOpen();
+    if (modal) {
+      devLog("forceCloseModal", "WARNING: Modal still open after all attempts!");
+      log(`[FORCE-CLOSE] Modal toujours ouvert malgré 3 tentatives!`, "error");
+    } else {
+      devLog("forceCloseModal", "Modal closed successfully");
+    }
+  }
+
   async function handleDiscardDialog() {
     await sleep(500);
     const discardBtn = findByText("button", ["discard", "annuler", "ignorer", "supprimer", "oui, annuler"]);
@@ -854,11 +969,18 @@
   // ── Main Apply Flow ─────────────────────────────────────────────────────
   async function applyToCurrentJob(settings) {
     const jobInfo = getCurrentJobInfo();
+    const applyStartTime = Date.now();
+    const JOB_TIMEOUT_MS = 120000; // 2 min max per job application
+    const MAX_SUBMIT_RETRIES = 2;
+    let submitAttempts = 0;
+
     log(`Candidature: ${jobInfo.title} @ ${jobInfo.company}`);
+    devLog("applyToCurrentJob", "START", { title: jobInfo.title, company: jobInfo.company, jobId: jobInfo.jobId });
 
     const easyApplyBtn = findEasyApplyButton();
     if (!easyApplyBtn) {
-      log("Bouton Easy Apply non trouvé — HTML: " + document.body?.innerText?.substring(0, 200), "warn");
+      log("Bouton Easy Apply non trouvé", "warn");
+      devLog("applyToCurrentJob", "No Easy Apply button found");
       return { success: false, reason: "no_easy_apply_button" };
     }
 
@@ -879,16 +1001,34 @@
 
     while (step < maxSteps && !shouldStop) {
       step++;
-      log(`Étape ${step}...`);
+
+      // ── Per-job timeout check ──
+      const elapsed = Date.now() - applyStartTime;
+      if (elapsed > JOB_TIMEOUT_MS) {
+        log(`⏰ Timeout (${Math.round(elapsed / 1000)}s) — abandon et passage au suivant`, "error");
+        devLog("applyToCurrentJob", "TIMEOUT", { elapsed, step, submitAttempts });
+        await forceCloseModal("timeout");
+        return { success: false, reason: "timeout" };
+      }
+
+      log(`Étape ${step}/${maxSteps} (${Math.round(elapsed / 1000)}s)...`);
+      devLog("applyToCurrentJob", `Step ${step}`, { elapsed, stuckCount, submitAttempts });
+
+      // ── Check for page-level error toasts (outside modal) ──
+      const pageError = detectPageError();
+      if (pageError) {
+        log(`[ERROR-TOAST] Erreur LinkedIn détectée: "${pageError}"`, "error");
+        devLog("applyToCurrentJob", "Page error toast detected", { pageError });
+        await forceCloseModal("page_error_toast");
+        return { success: false, reason: "linkedin_error_toast" };
+      }
 
       const status = detectModalStatus(modal);
-      log(`[DEBUG] Status modal: ${status}`, "info");
+      devLog("applyToCurrentJob", `Modal status: ${status}`, { step });
 
       if (status === "already_applied") {
         log("Déjà postulé à ce poste", "warn");
-        const dismissBtn = findDismissButton(modal);
-        if (dismissBtn) await humanClick(dismissBtn);
-        await handleDiscardDialog();
+        await forceCloseModal("already_applied");
         return { success: false, reason: "already_applied" };
       }
       if (status === "success") {
@@ -897,6 +1037,21 @@
         if (dismissBtn) { await sleep(500); await humanClick(dismissBtn); }
         return { success: true };
       }
+      if (status === "error") {
+        log("Erreur détectée dans le modal — abandon", "error");
+        devLog("applyToCurrentJob", "Modal error status detected");
+        await forceCloseModal("modal_error_status");
+        return { success: false, reason: "modal_error" };
+      }
+
+      // ── Check validation errors in modal ──
+      const validationErrors = detectValidationErrors(modal);
+      if (validationErrors.length > 0) {
+        devLog("applyToCurrentJob", "Validation errors found", { errors: validationErrors });
+        for (const err of validationErrors) {
+          log(`[VALIDATION] ${err}`, "warn");
+        }
+      }
 
       const fields = getModalFormFields(modal);
       const currentHash = stepFieldsHash(fields);
@@ -904,21 +1059,13 @@
 
       if (currentHash === lastFieldsHash && currentHash !== "") {
         stuckCount++;
-        log(`[DEBUG] Même étape détectée ${stuckCount} fois`, "warn");
+        log(`[STUCK] Même étape détectée ${stuckCount} fois`, "warn");
+        devLog("applyToCurrentJob", `Stuck count: ${stuckCount}`, { hash: currentHash.substring(0, 40) });
         if (stuckCount >= 2) {
-          log("Bloqué sur la même étape 2x — vérification erreurs de validation", "warn");
-          const errorMsgs = $$('[class*="error"], [class*="invalid"], [role="alert"]', modal);
-          for (const err of errorMsgs) {
-            const errText = err.textContent.trim();
-            if (errText) log(`[DEBUG] Erreur validation: "${errText}"`, "error");
-          }
-          if (stuckCount >= 3) {
-            log("Bloqué 3x sur même étape — abandon", "error");
-            const dismissBtn = findDismissButton(modal);
-            if (dismissBtn) await humanClick(dismissBtn);
-            await handleDiscardDialog();
-            return { success: false, reason: "stuck_on_step" };
-          }
+          log("Bloqué 2x sur même étape — fermeture et passage au suivant", "error");
+          devLog("applyToCurrentJob", "STUCK — force closing", { stuckCount, validationErrors });
+          await forceCloseModal("stuck_on_step");
+          return { success: false, reason: "stuck_on_step" };
         }
       } else {
         stuckCount = 0;
@@ -932,6 +1079,14 @@
       }
 
       await sleep(randomDelay(1000, 2000));
+
+      // ── Check for validation errors AFTER filling fields ──
+      const postFillErrors = detectValidationErrors(modal);
+      if (postFillErrors.length > 0) {
+        log(`[VALIDATION] ${postFillErrors.length} erreur(s) après remplissage`, "warn");
+        devLog("applyToCurrentJob", "Post-fill validation errors", { errors: postFillErrors });
+      }
+
       let nextAction = findNextButton(modal);
 
       // Retry once if button not found (may need time after typeahead selection)
@@ -943,7 +1098,8 @@
       }
 
       if (!nextAction) {
-        log("Pas de bouton Suivant/Envoyer trouvé — vérif status...", "warn");
+        log("Pas de bouton Suivant/Envoyer trouvé", "warn");
+        devLog("applyToCurrentJob", "No Next/Submit button found", { step });
         const statusCheck = detectModalStatus(modal);
         if (statusCheck === "success") {
           log("Candidature envoyée!", "success");
@@ -951,57 +1107,57 @@
           if (dismissBtn) await humanClick(dismissBtn);
           return { success: true };
         }
-        log("[DEBUG] Tentative dernier recours — cherche bouton action...", "warn");
-        const lastResort = $$("button", modal).filter(b => !b.disabled && b.offsetParent !== null);
-        const actionBtn = lastResort.find(b => {
-          const t = b.textContent.trim().toLowerCase();
-          return !t.includes("fermer") && !t.includes("close") && !t.includes("dismiss") &&
-                 !t.includes("annuler") && !t.includes("cancel") && !t.includes("précédent") &&
-                 !t.includes("previous") && !t.includes("retour") && t.length > 0 && t.length < 50;
-        });
-        if (actionBtn) {
-          log(`[DEBUG] Clic dernier recours: "${actionBtn.textContent.trim()}"`, "info");
-          await humanClick(actionBtn);
-          await sleep(randomDelay(2000, 4000));
-          modal = isModalOpen();
-          if (modal) {
-            const retryStatus = detectModalStatus(modal);
-            if (retryStatus === "success") {
-              log("Candidature envoyée (dernier recours)!", "success");
-              const dismissBtn = findDismissButton(modal);
-              if (dismissBtn) await humanClick(dismissBtn);
-              return { success: true };
-            }
-            continue;
-          }
-          return { success: true };
-        }
-        const dismissBtn = findDismissButton(modal);
-        if (dismissBtn) await humanClick(dismissBtn);
-        await handleDiscardDialog();
+        // Don't loop endlessly looking for buttons — force close
+        await forceCloseModal("no_next_button");
         return { success: false, reason: "no_next_button" };
       }
 
       if (nextAction.isSubmit) {
+        submitAttempts++;
+        devLog("applyToCurrentJob", `Submit attempt ${submitAttempts}/${MAX_SUBMIT_RETRIES}`, { buttonText: nextAction.button.textContent.trim() });
+
         if (!settings.autoSubmit) {
           log("Mode review: autoSubmit=false", "warn");
           return { success: false, reason: "manual_submit_required" };
         }
-        log(`Envoi de la candidature (bouton: "${nextAction.button.textContent.trim()}")...`, "info");
+
+        // ── Submit retry limit — avoid infinite submit loop ──
+        if (submitAttempts > MAX_SUBMIT_RETRIES) {
+          log(`[SUBMIT] ${MAX_SUBMIT_RETRIES} tentatives d'envoi échouées — abandon`, "error");
+          devLog("applyToCurrentJob", "MAX SUBMIT RETRIES REACHED — force closing");
+          await forceCloseModal("max_submit_retries");
+          return { success: false, reason: "submit_failed_max_retries" };
+        }
+
+        log(`Envoi de la candidature (tentative ${submitAttempts}/${MAX_SUBMIT_RETRIES})...`, "info");
         await humanClick(nextAction.button);
         await sleep(randomDelay(2000, 4000));
+
+        // ── Check for page-level error toast after submit ──
+        const submitPageError = detectPageError();
+        if (submitPageError) {
+          log(`[SUBMIT-ERROR] Erreur après envoi: "${submitPageError}"`, "error");
+          devLog("applyToCurrentJob", "Submit error toast", { submitPageError, attempt: submitAttempts });
+          await forceCloseModal("submit_error_toast");
+          return { success: false, reason: "submit_error_toast" };
+        }
 
         modal = isModalOpen();
         if (modal) {
           const finalStatus = detectModalStatus(modal);
-          log(`[DEBUG] Status après envoi: ${finalStatus}`, "info");
+          devLog("applyToCurrentJob", `Post-submit modal status: ${finalStatus}`, { attempt: submitAttempts });
           if (finalStatus === "success") {
             log("Candidature envoyée avec succès!", "success");
             const dismissBtn = findDismissButton(modal) || findByText("button", ["fermer", "close", "done", "terminé"], modal);
             if (dismissBtn) { await sleep(500); await humanClick(dismissBtn); }
             return { success: true };
           }
-          log("[DEBUG] Modal encore ouvert après submit — continue boucle", "warn");
+          if (finalStatus === "error") {
+            log("Erreur après envoi — abandon", "error");
+            await forceCloseModal("submit_modal_error");
+            return { success: false, reason: "submit_modal_error" };
+          }
+          log(`[SUBMIT] Modal encore ouvert après tentative ${submitAttempts} — continue`, "warn");
           continue;
         }
         return { success: true };
@@ -1020,9 +1176,8 @@
 
     if (step >= maxSteps) {
       log("Trop d'étapes (>12) — abandon", "error");
-      const dismissBtn = findDismissButton(modal);
-      if (dismissBtn) await humanClick(dismissBtn);
-      await handleDiscardDialog();
+      devLog("applyToCurrentJob", "MAX STEPS REACHED", { step });
+      await forceCloseModal("too_many_steps");
       return { success: false, reason: "too_many_steps" };
     }
     return { success: false, reason: "stopped" };
