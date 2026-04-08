@@ -37,6 +37,86 @@
     console.log(`[DEV ${ts}] [${context}] ${msg}${dataStr}`);
   }
 
+  // ── Notification Sound (Web Audio API) ─────────────────────────────────
+  function playNotificationSound(type = "stop") {
+    try {
+      const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      const gainNode = audioCtx.createGain();
+      gainNode.connect(audioCtx.destination);
+      gainNode.gain.value = 0.4;
+
+      if (type === "limit") {
+        // Urgent triple beep for daily limit
+        [0, 400, 800].forEach((delay) => {
+          const osc = audioCtx.createOscillator();
+          osc.connect(gainNode);
+          osc.type = "square";
+          osc.frequency.value = 880;
+          osc.start(audioCtx.currentTime + delay / 1000);
+          osc.stop(audioCtx.currentTime + delay / 1000 + 0.15);
+        });
+        setTimeout(() => audioCtx.close(), 2000);
+      } else if (type === "error") {
+        // Double low beep for errors
+        [0, 350].forEach((delay) => {
+          const osc = audioCtx.createOscillator();
+          osc.connect(gainNode);
+          osc.type = "sine";
+          osc.frequency.value = 440;
+          osc.start(audioCtx.currentTime + delay / 1000);
+          osc.stop(audioCtx.currentTime + delay / 1000 + 0.2);
+        });
+        setTimeout(() => audioCtx.close(), 1500);
+      } else {
+        // Single beep for session end / stop
+        const osc = audioCtx.createOscillator();
+        osc.connect(gainNode);
+        osc.type = "sine";
+        osc.frequency.value = 660;
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.3);
+        setTimeout(() => audioCtx.close(), 1000);
+      }
+    } catch (e) {
+      console.warn("[LinkedInAutoApply] Could not play sound:", e.message);
+    }
+  }
+
+  // ── Detect LinkedIn Daily Limit Message ────────────────────────────────
+  function detectDailyLimit() {
+    const limitTexts = [
+      "limitons le nombre d'envois quotidiens",
+      "limit the number of applications",
+      "daily application limit",
+      "enregistrez cette offre d'emploi et postulez demain",
+      "save this job and apply tomorrow",
+      "empêcher les bots",
+    ];
+    // Check error banners, alerts, inline feedback
+    const candidates = [
+      ...$$('[role="alert"]'),
+      ...$$('.artdeco-inline-feedback'),
+      ...$$('.artdeco-inline-feedback--error'),
+      ...$$('.artdeco-toast-item'),
+    ];
+    for (const el of candidates) {
+      const text = el.textContent.toLowerCase();
+      for (const limitText of limitTexts) {
+        if (text.includes(limitText)) {
+          return el.textContent.trim().substring(0, 200);
+        }
+      }
+    }
+    // Also check entire page body for the message (broader check)
+    const bodyText = document.body.textContent.toLowerCase();
+    for (const limitText of limitTexts) {
+      if (bodyText.includes(limitText)) {
+        return limitText;
+      }
+    }
+    return null;
+  }
+
   // ── DOM Helpers ─────────────────────────────────────────────────────────
   function $(selector, root = document) { return root.querySelector(selector); }
   function $$(selector, root = document) { return [...root.querySelectorAll(selector)]; }
@@ -821,7 +901,19 @@
     const text = modal.textContent.toLowerCase();
     if (text.includes("already applied") || text.includes("déjà postulé") || text.includes("candidature déjà envoyée")) return "already_applied";
     if (text.includes("application submitted") || text.includes("candidature envoyée") || text.includes("your application was sent")) return "success";
-    if (text.includes("error") || text.includes("erreur") || text.includes("something went wrong")) return "error";
+    // Only match fatal/system errors, NOT form validation messages
+    const fatalErrorPatterns = [
+      "something went wrong",
+      "une erreur est survenue",
+      "an error occurred",
+      "unexpected error",
+      "erreur inattendue",
+      "try again later",
+      "réessayez plus tard",
+    ];
+    for (const pattern of fatalErrorPatterns) {
+      if (text.includes(pattern)) return "error";
+    }
     return "in_progress";
   }
 
@@ -988,9 +1080,25 @@
     await sleep(randomDelay(1500, 3000));
 
     let modal = isModalOpen();
-    if (!modal) { await sleep(2000); modal = isModalOpen(); }
+    // Retry opening modal up to 3 times with increasing delays
     if (!modal) {
-      log("Modal Easy Apply ne s'ouvre pas", "error");
+      for (let attempt = 1; attempt <= 3 && !modal; attempt++) {
+        log(`[RETRY] Modal non ouvert — tentative ${attempt}/3...`, "warn");
+        await sleep(1500 * attempt);
+        // Re-find the button (may have been re-rendered by LinkedIn SPA)
+        const retryBtn = findEasyApplyButton();
+        if (retryBtn) {
+          // Scroll button into view before clicking
+          retryBtn.scrollIntoView({ behavior: "smooth", block: "center" });
+          await sleep(500);
+          await humanClick(retryBtn);
+          await sleep(randomDelay(2000, 3500));
+        }
+        modal = isModalOpen();
+      }
+    }
+    if (!modal) {
+      log("Modal Easy Apply ne s'ouvre pas après 3 tentatives", "error");
       return { success: false, reason: "modal_not_opened" };
     }
 
@@ -1009,6 +1117,16 @@
         devLog("applyToCurrentJob", "TIMEOUT", { elapsed, step, submitAttempts });
         await forceCloseModal("timeout");
         return { success: false, reason: "timeout" };
+      }
+
+      // ── Check for LinkedIn daily limit ──
+      const dailyLimitMsg = detectDailyLimit();
+      if (dailyLimitMsg) {
+        log(`🚫 LIMITE QUOTIDIENNE DÉTECTÉE: "${dailyLimitMsg}"`, "error");
+        devLog("applyToCurrentJob", "DAILY LIMIT DETECTED", { msg: dailyLimitMsg });
+        await forceCloseModal("daily_limit");
+        playNotificationSound("limit");
+        return { success: false, reason: "daily_limit" };
       }
 
       log(`Étape ${step}/${maxSteps} (${Math.round(elapsed / 1000)}s)...`);
@@ -1061,11 +1179,15 @@
         stuckCount++;
         log(`[STUCK] Même étape détectée ${stuckCount} fois`, "warn");
         devLog("applyToCurrentJob", `Stuck count: ${stuckCount}`, { hash: currentHash.substring(0, 40) });
-        if (stuckCount >= 2) {
-          log("Bloqué 2x sur même étape — fermeture et passage au suivant", "error");
+        if (stuckCount >= 3) {
+          log("Bloqué 3x sur même étape — fermeture et passage au suivant", "error");
           devLog("applyToCurrentJob", "STUCK — force closing", { stuckCount, validationErrors });
           await forceCloseModal("stuck_on_step");
           return { success: false, reason: "stuck_on_step" };
+        }
+        // On retry, try re-filling fields that may have been missed
+        if (stuckCount === 2) {
+          log("[STUCK] Tentative de re-remplissage des champs...", "info");
         }
       } else {
         stuckCount = 0;
@@ -1294,11 +1416,12 @@
     listEl.scrollTop = 0; await sleep(500);
   }
 
-  function buildSearchUrl(keywords, location, page = 0) {
+  function buildSearchUrl(keywords, location, page = 0, jobTypes = "") {
     const params = new URLSearchParams();
     if (keywords) params.set("keywords", keywords);
     if (location) params.set("location", location);
     params.set("f_AL", "true");
+    if (jobTypes) params.set("f_JT", jobTypes);
     if (page > 0) params.set("start", String(page * 25));
     return `https://www.linkedin.com/jobs/search/?${params.toString()}`;
   }
@@ -1354,6 +1477,17 @@
       if (session?.active) {
         await chrome.runtime.sendMessage({ action: "endSession" });
       }
+      playNotificationSound("stop");
+      isRunning = false;
+      return;
+    }
+
+    // ── Check daily limit before starting the loop ──
+    const earlyLimitCheck = detectDailyLimit();
+    if (earlyLimitCheck) {
+      log(`🚫 LIMITE QUOTIDIENNE DÉTECTÉE avant candidatures: "${earlyLimitCheck}"`, "error");
+      await chrome.runtime.sendMessage({ action: "endSession" }).catch(() => {});
+      playNotificationSound("limit");
       isRunning = false;
       return;
     }
@@ -1426,6 +1560,15 @@
         log(`Candidature en cours: ${jobInfo.title}...`);
         const result = await applyToCurrentJob(settings);
 
+        // ── Check for daily limit immediately after apply attempt ──
+        if (result.reason === "daily_limit") {
+          log("🚫 Limite quotidienne atteinte — arrêt de la session", "error");
+          await chrome.runtime.sendMessage({ action: "endSession" }).catch(() => {});
+          playNotificationSound("limit");
+          isRunning = false;
+          return;
+        }
+
         if (result.success) {
           pageApplied++;
           await chrome.runtime.sendMessage({
@@ -1450,6 +1593,16 @@
           const delay = randomDelay(settings.delayBetweenJobs?.min || 8000, settings.delayBetweenJobs?.max || 20000);
           log(`Pause ${Math.round(delay / 1000)}s...`);
           await sleep(delay);
+
+          // Check daily limit during pause
+          const limitCheck = detectDailyLimit();
+          if (limitCheck) {
+            log("🚫 Limite quotidienne détectée pendant la pause — arrêt", "error");
+            await chrome.runtime.sendMessage({ action: "endSession" }).catch(() => {});
+            playNotificationSound("limit");
+            isRunning = false;
+            return;
+          }
         }
       }
 
@@ -1462,7 +1615,7 @@
             action: "updateSession",
             updates: { currentPage: nextPage },
           });
-          const nextUrl = buildSearchUrl(updatedSession.keywords, updatedSession.location, nextPage);
+          const nextUrl = buildSearchUrl(updatedSession.keywords, updatedSession.location, nextPage, updatedSession.jobTypes || "");
           log(`Page suivante ${nextPage + 1}: ${nextUrl}`);
           await sleep(randomDelay(3000, 6000));
           window.location.href = nextUrl;
@@ -1471,15 +1624,18 @@
           if (updatedSession?.active) {
             await chrome.runtime.sendMessage({ action: "endSession" });
             log(`Session terminée — ${updatedSession.applied || 0} candidature(s)`, "success");
+            playNotificationSound("stop");
           }
         }
       } else {
         await chrome.runtime.sendMessage({ action: "endSession" });
         log("Session arrêtée par l'utilisateur", "warn");
+        playNotificationSound("stop");
       }
     } catch (err) {
       log(`Erreur session: ${err.message}`, "error");
       console.error("[LinkedInAutoApply] Session error:", err);
+      playNotificationSound("error");
     }
 
     isRunning = false;

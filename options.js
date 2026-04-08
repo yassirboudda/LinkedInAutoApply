@@ -300,12 +300,23 @@ function cleanOcrText(text) {
 }
 
 function loadScript(url) {
-  return new Promise((resolve, reject) => {
-    const script = document.createElement("script");
-    script.src = url;
-    script.onload = resolve;
-    script.onerror = () => reject(new Error(`Failed to load: ${url}`));
-    document.head.appendChild(script);
+  return new Promise(async (resolve, reject) => {
+    try {
+      // MV3 CSP blocks remote <script> tags on extension pages.
+      // Workaround: fetch the script, create a blob URL, then load it.
+      const response = await fetch(url);
+      if (!response.ok) throw new Error(`HTTP ${response.status} for ${url}`);
+      const text = await response.text();
+      const blob = new Blob([text], { type: "application/javascript" });
+      const blobUrl = URL.createObjectURL(blob);
+      const script = document.createElement("script");
+      script.src = blobUrl;
+      script.onload = () => { URL.revokeObjectURL(blobUrl); resolve(); };
+      script.onerror = () => { URL.revokeObjectURL(blobUrl); reject(new Error(`Failed to execute: ${url}`)); };
+      document.head.appendChild(script);
+    } catch (err) {
+      reject(new Error(`Failed to load: ${url} — ${err.message}`));
+    }
   });
 }
 

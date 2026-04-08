@@ -7,24 +7,24 @@
 const KEEPALIVE_ALARM_NAME = "linkedin-keepalive";
 const MISTRAL_MODEL = "mistral-large-latest";
 const MISTRAL_ENDPOINT = "https://api.mistral.ai/v1/chat/completions";
-const DEFAULT_API_KEY = "uwqtlWhrRDIdE0QAHYkIhMFkLTbkDYIb";
+const DEFAULT_API_KEY = "wsZhjqUH0GAuziQ49gtlRw8vDNSqC5tp";
 
 self._LINKEDIN_AUTOAPPLY_VERSION = "1.0.0";
 
 // ── Default Profile ─────────────────────────────────────────────────────────
 const DEFAULT_PROFILE = {
-  fullName: "",
-  firstName: "",
-  lastName: "",
-  email: "",
-  phone: "",
-  linkedin: "",
-  location: "",
-  title: "",
+  fullName: "John Doe",
+  firstName: "John",
+  lastName: "Doe",
+  email: "johndoe@example.com",
+  phone: "+33612345678",
+  linkedin: "linkedin.com/in/johndoe",
+  location: "France",
+  title: "Candidat",
   experience: "",
-  stack: ",
+  stack: "",
   education: "",
-  languages: "",
+  languages: "Français (natif), Anglais (courant)",
   availability: "Disponible immédiatement",
   salaryExpectation: "",
   coverLetterDefault: "",
@@ -232,7 +232,7 @@ function getDefaultAnswer(question, fieldType, profile) {
 
   // Phone number
   if (/phone|téléphone|numero|numéro|mobile|tel/i.test(q)) {
-    return profile.phone || "";
+    return profile.phone || "+33612345678";
   }
 
   // Email

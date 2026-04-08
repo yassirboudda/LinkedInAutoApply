@@ -153,19 +153,36 @@ $("launchSessionBtn").addEventListener("click", async () => {
   await chrome.storage.local.set({ lastKeywords: keywords, lastLocation: location });
   const maxJobs = parseInt($("maxJobs").value) || 25;
 
+  // ── Collect selected job types ──
+  const jobTypeChecks = document.querySelectorAll(".jobTypeCheck:checked");
+  const jobTypeCodes = new Set();
+  let addAlternanceKeyword = false;
+  for (const cb of jobTypeChecks) {
+    jobTypeCodes.add(cb.value);
+    if (cb.dataset.keyword === "alternance") addAlternanceKeyword = true;
+  }
+  const jobTypeParam = [...jobTypeCodes].join(","); // e.g. "F,C,I"
+
+  // If "alternance" is checked, ensure the keyword is in the search
+  let finalKeywords = keywords;
+  if (addAlternanceKeyword && !keywords.toLowerCase().includes("alternance")) {
+    finalKeywords = keywords + " alternance";
+  }
+
   // ═══════════════════════════════════════════════════════════════════════
   // CRITICAL FIX v1.4.0: Write session DIRECTLY to chrome.storage.local
   // This bypasses the service worker entirely — no more active=undefined!
   // ═══════════════════════════════════════════════════════════════════════
   const session = {
     active: true,
-    keywords: keywords,
+    keywords: finalKeywords,
     location: location,
     currentPage: 0,
     applied: 0,
     skipped: 0,
     errors: 0,
     maxJobs: maxJobs,
+    jobTypes: jobTypeParam,
     startedAt: new Date().toISOString(),
   };
 
@@ -174,7 +191,7 @@ $("launchSessionBtn").addEventListener("click", async () => {
   console.log("[popup] Session written DIRECTLY to storage:", session);
 
   // Also notify background service worker (for logging, non-critical)
-  const result = await sendToBackground({ action: "startSession", keywords, location, maxJobs });
+  const result = await sendToBackground({ action: "startSession", keywords: finalKeywords, location, maxJobs });
   console.log("[popup] startSession bg result:", result);
 
   // Verify it's really in storage
@@ -183,9 +200,10 @@ $("launchSessionBtn").addEventListener("click", async () => {
 
   // Build search URL
   const params = new URLSearchParams();
-  params.set("keywords", keywords);
+  params.set("keywords", finalKeywords);
   if (location) params.set("location", location);
   params.set("f_AL", "true");
+  if (jobTypeParam) params.set("f_JT", jobTypeParam);
   const searchUrl = `https://www.linkedin.com/jobs/search/?${params.toString()}`;
 
   // Navigate tab
