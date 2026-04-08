@@ -470,12 +470,56 @@
     return input.name || input.id || "Unknown field";
   }
 
+  // ── Phone field detection ──────────────────────────────────────────────────
+  function isPhoneField(label) {
+    return /phone|téléphone|telephone|mobile|cell|numéro.*tél|tel\b|phone.*number|numero.*telephone/i.test(label);
+  }
+
+  // ── Get user phone from profile ──────────────────────────────────────────
+  async function getUserPhone() {
+    try {
+      const data = await chrome.storage.local.get(["profile"]);
+      return data.profile?.phone || null;
+    } catch {
+      return null;
+    }
+  }
+
   // ── Fill a Single Form Field ────────────────────────────────────────────
 
   /**
    * Fill a form field with an AI-generated or default answer
    */
   async function fillField(field, jobInfo) {
+    // ── Phone override: always use profile phone if configured ──
+    if ((field.type === "tel" || isPhoneField(field.label)) && field.value) {
+      const profilePhone = await getUserPhone();
+      if (profilePhone && profilePhone !== field.value) {
+        log(`📱 Remplacement du numéro LinkedIn "${field.value}" par le numéro du profil "${profilePhone}"`, "info");
+        const el = field.element;
+        el.focus();
+        setNativeValue(el, profilePhone);
+        el.dispatchEvent(new Event("change", { bubbles: true }));
+        el.dispatchEvent(new Event("blur", { bubbles: true }));
+        log(`OK "${field.label}" = "${profilePhone}" (phone override)`, "success");
+        return;
+      }
+    }
+
+    // ── Phone fill: use profile phone for empty phone fields ──
+    if ((field.type === "tel" || isPhoneField(field.label)) && !field.value) {
+      const profilePhone = await getUserPhone();
+      if (profilePhone) {
+        const el = field.element;
+        el.focus();
+        setNativeValue(el, profilePhone);
+        el.dispatchEvent(new Event("change", { bubbles: true }));
+        el.dispatchEvent(new Event("blur", { bubbles: true }));
+        log(`OK "${field.label}" = "${profilePhone}" (phone from profile)`, "success");
+        return;
+      }
+    }
+
     // Skip already filled fields (unless empty)
     if (field.value && field.type !== "select" && field.type !== "radio" && field.type !== "checkbox") {
       log(`Champ "${field.label}" déjà rempli: "${field.value}"`, "info");
