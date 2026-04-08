@@ -14,18 +14,18 @@ self._LINKEDIN_AUTOAPPLY_VERSION = "1.4.0";
 
 // ── Default Profile ─────────────────────────────────────────────────────────
 const DEFAULT_PROFILE = {
-  fullName: "Yassir Boudda",
-  firstName: "Yassir",
-  lastName: "Boudda",
-  email: "yassirboudda@gmail.com",
-  phone: "+33744241119",
-  linkedin: "linkedin.com/in/yboudda",
-  location: "France",
-  title: "Développeur Fullstack",
-  experience: "10+ ans développeur web fullstack",
-  stack: "Laravel, Vue.js, React, WordPress, Shopify, PHP, Python, Node.js, TypeScript, RPA, UiPath, Power Automate",
+  fullName: "",
+  firstName: "",
+  lastName: "",
+  email: "",
+  phone: "",
+  linkedin: "",
+  location: "",
+  title: "",
+  experience: "",
+  stack: ",
   education: "",
-  languages: "Français (natif), Anglais (courant), Arabe (natif)",
+  languages: "",
   availability: "Disponible immédiatement",
   salaryExpectation: "",
   coverLetterDefault: "",
@@ -240,7 +240,7 @@ Réponds de manière concise et pertinente.`;
 
 function getDefaultAnswer(question, fieldType, profile) {
   const q = question.toLowerCase();
-  if (/phone|téléphone|numero|numéro|mobile|tel/i.test(q)) return profile.phone || "+33744241119";
+  if (/phone|téléphone|numero|numéro|mobile|tel/i.test(q)) return profile.phone || "";
   if (/email|e-mail|courriel|mail/i.test(q)) return profile.email || "";
   if (/ann[ée]es?\s*(d'?exp|expéri)|years?\s*of\s*exp|experience.*years/i.test(q)) return "10";
   if (/salaire|salary|rémunération|remuneration|prétention/i.test(q)) return profile.salaryExpectation || "55000";
@@ -250,7 +250,7 @@ function getDefaultAnswer(question, fieldType, profile) {
   if (/location|city|ville|lieu|localisation|adresse|r[ée]gion|where.*(?:live|based|located)/i.test(q)) return profile.location || "France";
   if (/lettre|cover\s*letter|motivation|pourquoi|why.*interested/i.test(q)) {
     return profile.coverLetterDefault ||
-      `Passionné par ce poste, j'apporte ${profile.experience || "10+ ans d'expérience"} en ${profile.stack || "développement web"}. Disponible immédiatement.`;
+      `Passionné par ce poste, j'apporte ${profile.experience || "une solide expérience"} en ${profile.stack || "mon domaine"}. Disponible immédiatement.`;
   }
   if (/langue|language|parlez/i.test(q)) return profile.languages || "Français, Anglais, Arabe";
   if (fieldType === "number") {
@@ -258,7 +258,7 @@ function getDefaultAnswer(question, fieldType, profile) {
     if (/ann[ée]e|year/i.test(q)) return "10";
     return "10";
   }
-  return profile.title || "Développeur Fullstack";
+  return profile.title || "";
 }
 
 // ── Offscreen Keepalive ─────────────────────────────────────────────────────

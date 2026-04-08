@@ -13,18 +13,18 @@ self._LINKEDIN_AUTOAPPLY_VERSION = "1.0.0";
 
 // ── Default Profile ─────────────────────────────────────────────────────────
 const DEFAULT_PROFILE = {
-  fullName: "Yassir Boudda",
-  firstName: "Yassir",
-  lastName: "Boudda",
-  email: "yassirboudda@gmail.com",
-  phone: "+33744241119",
-  linkedin: "linkedin.com/in/yboudda",
-  location: "France",
-  title: "Développeur Fullstack",
-  experience: "10+ ans développeur web fullstack",
-  stack: "Laravel, Vue.js, React, WordPress, Shopify, PHP, Python, Node.js, TypeScript, RPA, UiPath, Power Automate",
+  fullName: "",
+  firstName: "",
+  lastName: "",
+  email: "",
+  phone: "",
+  linkedin: "",
+  location: "",
+  title: "",
+  experience: "",
+  stack: ",
   education: "",
-  languages: "Français (natif), Anglais (courant), Arabe (natif)",
+  languages: "",
   availability: "Disponible immédiatement",
   salaryExpectation: "",
   coverLetterDefault: "",
@@ -232,7 +232,7 @@ function getDefaultAnswer(question, fieldType, profile) {
 
   // Phone number
   if (/phone|téléphone|numero|numéro|mobile|tel/i.test(q)) {
-    return profile.phone || "+33744241119";
+    return profile.phone || "";
   }
 
   // Email
@@ -268,7 +268,7 @@ function getDefaultAnswer(question, fieldType, profile) {
   // Cover letter / motivation
   if (/lettre|cover\s*letter|motivation|pourquoi|why.*interested/i.test(q)) {
     return profile.coverLetterDefault ||
-      `Passionné par ce poste, j'apporte ${profile.experience || "10+ ans d'expérience"} en ${profile.stack || "développement web"}. Disponible immédiatement.`;
+      `Passionné par ce poste, j'apporte ${profile.experience || "une solide expérience"} en ${profile.stack || "mon domaine"}. Disponible immédiatement.`;
   }
 
   // Language
@@ -278,7 +278,7 @@ function getDefaultAnswer(question, fieldType, profile) {
 
   // Default
   if (fieldType === "number") return "10";
-  return profile.title || "Développeur Fullstack";
+  return profile.title || "";
 }
 
 // ── CV Text Extraction (Tesseract.js via offscreen or direct) ───────────────
