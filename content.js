@@ -978,18 +978,33 @@
     return "in_progress";
   }
 
+  // ── Dismiss any visible LinkedIn toasts ──────────────────────────────
+  function dismissVisibleToasts() {
+    const toasts = $$('.artdeco-toast-item');
+    for (const toast of toasts) {
+      if (toast.offsetParent === null) continue;
+      const closeBtn = toast.querySelector('button.artdeco-toast-item__dismiss, button[data-test-artdeco-toast-close-btn], button.artdeco-dismiss');
+      if (closeBtn) {
+        closeBtn.click();
+        devLog("dismissVisibleToasts", "Dismissed toast", { text: toast.textContent.substring(0, 80) });
+      }
+    }
+  }
+
   // ── Detect LinkedIn error toasts/banners OUTSIDE the modal ──────────────
   function detectPageError() {
-    // LinkedIn shows error toasts as artdeco-toast or notification banners
+    // Only match actual toast containers — NOT alerts, inline feedback, or badges
     const toastSelectors = [
       '.artdeco-toast-item--error',
       'div.artdeco-toast-item',
-      '[role="alert"]',
-      '.artdeco-inline-feedback--error',
-      '.notification-badge',
     ];
+    const modal = isModalOpen();
     for (const sel of toastSelectors) {
       for (const el of $$(sel)) {
+        // Skip invisible elements
+        if (el.offsetParent === null) continue;
+        // Skip elements inside the Easy Apply modal
+        if (modal && modal.contains(el)) continue;
         const text = el.textContent.toLowerCase();
         if (text.includes("erreur") || text.includes("error") ||
             text.includes("something went wrong") || text.includes("une erreur") ||
@@ -1137,6 +1152,9 @@
       return { success: false, reason: "no_easy_apply_button" };
     }
 
+    // Dismiss any stale toasts before opening the modal
+    dismissVisibleToasts();
+
     await humanClick(easyApplyBtn);
     await sleep(randomDelay(1500, 3000));
 
@@ -1196,10 +1214,19 @@
       // ── Check for page-level error toasts (outside modal) ──
       const pageError = detectPageError();
       if (pageError) {
-        log(`[ERROR-TOAST] Erreur LinkedIn détectée: "${pageError}"`, "error");
-        devLog("applyToCurrentJob", "Page error toast detected", { pageError });
-        await forceCloseModal("page_error_toast");
-        return { success: false, reason: "linkedin_error_toast" };
+        log(`[ERROR-TOAST] Erreur LinkedIn détectée: "${pageError}" — tentative de dismiss...`, "warn");
+        devLog("applyToCurrentJob", "Page error toast detected — trying to dismiss", { pageError });
+        dismissVisibleToasts();
+        await sleep(1500);
+        // Re-check after dismissal
+        const pageErrorRetry = detectPageError();
+        if (pageErrorRetry) {
+          log(`[ERROR-TOAST] Erreur persistante après dismiss: "${pageErrorRetry}"`, "error");
+          devLog("applyToCurrentJob", "Page error toast persists after dismiss", { pageErrorRetry });
+          await forceCloseModal("page_error_toast");
+          return { success: false, reason: "linkedin_error_toast" };
+        }
+        log("[ERROR-TOAST] Toast dismissed — on continue", "info");
       }
 
       const status = detectModalStatus(modal);
@@ -1347,10 +1374,17 @@
         // ── Check for page-level error toast after submit ──
         const submitPageError = detectPageError();
         if (submitPageError) {
-          log(`[SUBMIT-ERROR] Erreur après envoi: "${submitPageError}"`, "error");
-          devLog("applyToCurrentJob", "Submit error toast", { submitPageError, attempt: submitAttempts });
-          await forceCloseModal("submit_error_toast");
-          return { success: false, reason: "submit_error_toast" };
+          log(`[SUBMIT-ERROR] Erreur après envoi: "${submitPageError}" — tentative de dismiss...`, "warn");
+          devLog("applyToCurrentJob", "Submit error toast — trying to dismiss", { submitPageError, attempt: submitAttempts });
+          dismissVisibleToasts();
+          await sleep(1500);
+          const submitRetry = detectPageError();
+          if (submitRetry) {
+            log(`[SUBMIT-ERROR] Erreur persistante: "${submitRetry}"`, "error");
+            await forceCloseModal("submit_error_toast");
+            return { success: false, reason: "submit_error_toast" };
+          }
+          log("[SUBMIT-ERROR] Toast dismissed — on continue", "info");
         }
 
         modal = isModalOpen();
