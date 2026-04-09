@@ -426,21 +426,38 @@
       if (input.type === "hidden" || input.type === "radio" || input.type === "checkbox") continue;
 
       let detectedType = input.type || "text";
-      if (detectedType === "text") {
+      if (detectedType === "text" || detectedType === "number") {
         const container = input.closest("div.fb-dash-form-element, div.artdeco-text-input, div");
         const errorText = container ? (container.textContent || "").toLowerCase() : "";
         const labelText = (findLabelForInput(input, modal) || "").toLowerCase();
+        const hasMinMax = input.hasAttribute("min") || input.hasAttribute("max");
+        const hasNumericPattern = input.getAttribute("pattern") && /\d/.test(input.getAttribute("pattern"));
         if (
+          hasMinMax ||
+          hasNumericPattern ||
           errorText.includes("decimal number") ||
           errorText.includes("nombre décimal") ||
           errorText.includes("nombre entier") ||
+          errorText.includes("numéro decimal") ||
           errorText.includes("numeric value") ||
           errorText.includes("enter a number") ||
+          errorText.includes("supérieur à") ||
+          errorText.includes("greater than") ||
           labelText.includes("salaire") ||
           labelText.includes("salary") ||
           labelText.includes("rémunération") ||
           labelText.includes("prétention") ||
-          /ann[ée]e|year/i.test(labelText)
+          /ann[ée]e|year/i.test(labelText) ||
+          /combien.*ann[ée]es/i.test(labelText) ||
+          /combien.*temps/i.test(labelText) ||
+          /combien.*mois/i.test(labelText) ||
+          /dur[ée]e.*contrat/i.test(labelText) ||
+          /nombre d['']/i.test(labelText) ||
+          /how many/i.test(labelText) ||
+          /how long/i.test(labelText) ||
+          /months/i.test(labelText) ||
+          /years/i.test(labelText) ||
+          /expérience/i.test(labelText)
         ) {
           detectedType = "number";
           log(`[DEBUG] Champ "${findLabelForInput(input, modal)}" reclassé comme "number"`, "info");
@@ -1251,6 +1268,34 @@
       if (postFillErrors.length > 0) {
         log(`[VALIDATION] ${postFillErrors.length} erreur(s) après remplissage`, "warn");
         devLog("applyToCurrentJob", "Post-fill validation errors", { errors: postFillErrors });
+
+        // ── Auto-recovery: fix numeric fields that got text values ──
+        for (const errMsg of postFillErrors) {
+          const numericErrorPatterns = /num[ée]ro decimal|decimal number|nombre (d[ée]cimal|entier)|numeric value|enter a number|sup[ée]rieur [àa]|greater than/i;
+          if (numericErrorPatterns.test(errMsg)) {
+            log(`[RECOVERY] Tentative de correction numérique pour: "${errMsg}"`, "info");
+            // Find the error element and its associated input
+            const errorElements = $$('.artdeco-inline-feedback--error, .fb-dash-form-element__error-field, [role="alert"]', modal);
+            for (const errEl of errorElements) {
+              if ((errEl.textContent || "").includes(errMsg.substring(0, 30))) {
+                const formGroup = errEl.closest('div.fb-dash-form-element, div.artdeco-text-input, div[data-test-form-element]') || errEl.parentElement;
+                if (!formGroup) continue;
+                const inputEl = formGroup.querySelector('input[type="text"], input[type="number"], input:not([type])');
+                if (!inputEl || !inputEl.value) continue;
+                const numMatch = inputEl.value.match(/\d+(\.\d+)?/);
+                if (numMatch) {
+                  const numericOnly = numMatch[0];
+                  log(`[RECOVERY] Remplacement "${inputEl.value}" → "${numericOnly}"`, "info");
+                  setNativeValue(inputEl, numericOnly);
+                  inputEl.dispatchEvent(new Event("input", { bubbles: true }));
+                  inputEl.dispatchEvent(new Event("change", { bubbles: true }));
+                  inputEl.dispatchEvent(new Event("blur", { bubbles: true }));
+                  await sleep(500);
+                }
+              }
+            }
+          }
+        }
       }
 
       let nextAction = findNextButton(modal);

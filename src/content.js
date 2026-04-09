@@ -322,9 +322,49 @@
     for (const input of inputs) {
       if (input.offsetParent === null || input.disabled) continue;
       const label = findLabelForInput(input, modal);
+
+      let detectedType = input.type || "text";
+      if (detectedType === "text" || detectedType === "number") {
+        const container = input.closest("div.fb-dash-form-element, div.artdeco-text-input, div");
+        const errorText = container ? (container.textContent || "").toLowerCase() : "";
+        const labelText = (label || "").toLowerCase();
+        const hasMinMax = input.hasAttribute("min") || input.hasAttribute("max");
+        const hasNumericPattern = input.getAttribute("pattern") && /\d/.test(input.getAttribute("pattern"));
+        if (
+          hasMinMax ||
+          hasNumericPattern ||
+          errorText.includes("decimal number") ||
+          errorText.includes("nombre décimal") ||
+          errorText.includes("nombre entier") ||
+          errorText.includes("numéro decimal") ||
+          errorText.includes("numeric value") ||
+          errorText.includes("enter a number") ||
+          errorText.includes("supérieur à") ||
+          errorText.includes("greater than") ||
+          labelText.includes("salaire") ||
+          labelText.includes("salary") ||
+          labelText.includes("rémunération") ||
+          labelText.includes("prétention") ||
+          /ann[ée]e|year/i.test(labelText) ||
+          /combien.*ann[ée]es/i.test(labelText) ||
+          /combien.*temps/i.test(labelText) ||
+          /combien.*mois/i.test(labelText) ||
+          /dur[ée]e.*contrat/i.test(labelText) ||
+          /nombre d['']/i.test(labelText) ||
+          /how many/i.test(labelText) ||
+          /how long/i.test(labelText) ||
+          /months/i.test(labelText) ||
+          /years/i.test(labelText) ||
+          /expérience/i.test(labelText)
+        ) {
+          detectedType = "number";
+          log(`[DEBUG] Champ "${label}" reclassé comme "number"`, "info");
+        }
+      }
+
       fields.push({
         element: input,
-        type: input.type || "text",
+        type: detectedType,
         label: label,
         value: input.value,
         required: input.required || input.getAttribute("aria-required") === "true",
